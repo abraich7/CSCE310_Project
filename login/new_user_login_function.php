@@ -28,10 +28,10 @@
 
                 $row = mysqli_fetch_assoc($result_user_type);
 
-                $_SESSION["username"] = $username;
+                $_SESSION["uin"] = $uin;
                 $_SESSION["user_type"] = $row['User_Type'];
 
-                echo $_SESSION["username"];
+                echo $_SESSION["uin"];
                 echo $_SESSION["user_type"];
 
                 if ($userType === 'student') {
