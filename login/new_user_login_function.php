@@ -23,21 +23,17 @@
             if ($result = mysqli_query($conn, $sql)) {
                 // user successfully added
 
-                $sql_query_for_user_type = "SELECT 'User_Type' FROM users WHERE username='$username'";
-                $result_user_type = mysqli_query($conn, $sql);
-
-                $row = mysqli_fetch_assoc($result_user_type);
 
                 $_SESSION["uin"] = $uin;
-                $_SESSION["user_type"] = $row['User_Type'];
+                $_SESSION["user_type"] = $user_type;
 
                 echo $_SESSION["uin"];
                 echo $_SESSION["user_type"];
 
-                if ($userType === 'student') {
+                if ($_SESSION["user_type"] === 'student') {
                     header("Location: student_links.php");
                     exit();
-                } elseif ($userType === 'admin') {
+                } elseif ($_SESSION["user_type"] === 'admin') {
                     header("Location: admin_links.php");
                     exit();
                 }
