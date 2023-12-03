@@ -1,3 +1,10 @@
+<?php
+    include_once '../includes/dbh.inc.php';
+
+    session_start();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,30 +15,30 @@
 <h2>Create a New User</h2>
 <form action="new_user_login_function.php" method="post">
     <label for="uin">UIN:</label>
-    <input type="text" id="uin" name="uin" required><br><br>
+    <input type="text" id="UIN" name="UIN" required><br><br>
 
     <label for="first_name">First Name:</label>
-    <input type="text" id="first_name" name="first_name" required><br><br>
+    <input type="text" id="First_Name" name="First_Name" required><br><br>
 
     <label for="m_initial">Middle Initial:</label>
-    <input type="text" id="m_initial" name="m_initial"><br><br>
+    <input type="text" id="M_Initial" name="M_Initial"><br><br>
 
     <label for="last_name">Last Name:</label>
-    <input type="text" id="last_name" name="last_name" required><br><br>
+    <input type="text" id="Last_Name" name="Last_Name" required><br><br>
 
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br><br>
+    <input type="text" id="Username" name="Username" required><br><br>
 
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br><br>
+    <input type="password" id="Passwords" name="Passwords" required><br><br>
 
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br><br>
+    <input type="email" id="Email" name="Email" required><br><br>
 
     <label for="discord_name">Discord Name:</label>
-    <input type="text" id="discord_name" name="discord_name"><br><br>
+    <input type="text" id="Discord_Name" name="Discord_Name"><br><br>
 
-    <input type="submit" name="new_user_login" value="New_User_Login">
+    <input type="submit" name="new_user_login" value="Create User">
 </form>
 
 </body>

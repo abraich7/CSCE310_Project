@@ -1,5 +1,7 @@
 <?php
     include_once '../includes/dbh.inc.php';
+
+    session_start();
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +21,7 @@
             </div>
             <div>
                 <label for="passwords">Password:</label>
-                <input type="passwords" id="passwords" name="passwords" required>
+                <input type="password" id="passwords" name="passwords" required>
             </div>
             <div>
                 <input type="submit" name="login" value="Login">
