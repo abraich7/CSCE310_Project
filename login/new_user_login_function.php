@@ -19,16 +19,10 @@
             // create SQL statement
             $sql = "INSERT INTO users(UIN,First_Name,M_Initial,Last_Name,Username,Passwords,User_Type,Email,Discord_Name) VALUES ($uin, '$first_name', '$m_initial', '$last_name', '$username', '$password', '$user_type', '$email', '$discord_name')";
 
-    
             if ($result = mysqli_query($conn, $sql)) {
                 // user successfully added
-
-
                 $_SESSION["uin"] = $uin;
                 $_SESSION["user_type"] = $user_type;
-
-                echo $_SESSION["uin"];
-                echo $_SESSION["user_type"];
 
                 if ($_SESSION["user_type"] === 'student') {
                     header("Location: student_links.php");
