@@ -1,8 +1,8 @@
 -- Users Table
 INSERT INTO Users (UIN, First_Name, M_Initial, Last_Name, Username, Passwords, User_Type, Email, Discord_Name)
-VALUES (1, 'John', 'D', 'Doe', 'johndoe', 'password123', 'Admin', 'john@example.com', 'JohnDoe#123'),
-       (2, 'Jane', 'M', 'Smith', 'janesmith', 'password456', 'User', 'jane@example.com', 'JaneSmith#456'),
-       (3, 'Alice', 'K', 'Johnson', 'alicejohn', 'password789', 'User', 'alice@example.com', 'AliceJohnson#789');
+VALUES (1, 'John', 'D', 'Doe', 'johndoe', 'password123', 'admin', 'john@example.com', 'JohnDoe#123'),
+       (2, 'Jane', 'M', 'Smith', 'janesmith', 'password456', 'user', 'jane@example.com', 'JaneSmith#456'),
+       (3, 'Alice', 'K', 'Johnson', 'alicejohn', 'password789', 'user', 'alice@example.com', 'AliceJohnson#789');
 
 -- Programs Table
 INSERT INTO Programs (Name, Description)
