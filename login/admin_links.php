@@ -18,6 +18,9 @@
     <title>Admin Links</title>
 </head>
 <body>
-    <p>Admin Links</p>
+    <h1>Admin Links</h1>
+    <ul>
+        <li><a href="../event_management">Event Management</a></li>
+    </ul>
 </body>
 </html>
