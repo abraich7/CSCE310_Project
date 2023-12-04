@@ -1,5 +1,5 @@
 <?php
-    include_once "includes/dbh.inc.php";
+    include_once "../includes/dbh.inc.php";
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +51,7 @@
                 }
             ?>
             <br>
-            <button onclick="window.location.href = 'program_manage.php';"> Back </button>
+            <button onclick="window.location.href = 'application_manage.php';"> Back </button>
         </div>
     </body>
 </html>

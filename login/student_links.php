@@ -4,7 +4,7 @@
     // confirm user is a student
     session_start();
 
-    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'student') {
+    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Student') {
         // Redirect to login page or display error message
         header("Location: login.php"); // Redirect to login page
         exit();
@@ -20,5 +20,8 @@
 </head>
 <body>
     <p>Student Links</p>
+    <button onclick="window.location.href = '../application_management/application_manage.php';">Application Information Management</button>  <!-- Jake Student Functionality -->
+    
+    <button onclick="window.location.href = '../index.php';">Logout</button>  <!-- Jake Admin Functionality -->
 </body>
 </html>

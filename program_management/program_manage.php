@@ -1,5 +1,5 @@
 <?php
-    include_once "includes/dbh.inc.php";
+    include_once "../includes/dbh.inc.php";
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +19,6 @@
         <button onclick="window.location.href = 'program_delete.php';"> Remove a Program </button><br>
         <br>
         <br>
-        <button onclick="window.location.href = 'index.php';"> Back </button>
+        <button onclick="window.location.href = '../login/admin_links.php';"> Back </button>
     </body>
 </html>

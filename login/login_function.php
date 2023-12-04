@@ -18,7 +18,7 @@
             if (mysqli_num_rows($result) == 1) {
                 // User exists, login successful
                 // Redirect to a success page or perform further actions
-                // header("Location: welcome.php");
+                //header("Location: welcome.php");
                 $sql_query_for_user_type = "SELECT 'User_Type' FROM users WHERE username='$username'";
                 $result_user_type = mysqli_query($conn, $sql);
 
@@ -27,13 +27,13 @@
                 $_SESSION["uin"] = $row['UIN'];
                 $_SESSION["user_type"] = $row['User_Type'];
 
-                echo $_SESSION["UIN"];
-                echo $_SESSION["user_type"];
+                //echo $_SESSION["uin"];
+                //echo $_SESSION["user_type"];
 
-                if ($_SESSION["user_type"] === 'student') {
+                if ($_SESSION["user_type"] === 'Student') {
                     header("Location: student_links.php");
                     exit();
-                } elseif ($_SESSION["user_type"] === 'admin') {
+                } elseif ($_SESSION["user_type"] === 'Admin') {
                     header("Location: admin_links.php");
                     exit();
                 }
