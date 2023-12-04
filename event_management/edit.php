@@ -10,6 +10,12 @@
     <?php
     session_start();
 
+    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
+        // Redirect to login page or display error message
+        header("Location: ../login.php"); // Redirect to login page
+        exit();
+    }
+
     include_once '../includes/dbh.inc.php'; // Include the database connection file
 
     // Check for success parameter in the URL
