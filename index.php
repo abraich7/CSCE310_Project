@@ -1,5 +1,5 @@
 <?php
-    include_once "includes/db.inc.php";
+    include_once "includes/dbh.inc.php";
 ?>
 
 <!DOCTYPE html>
@@ -9,9 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+    <body>
+    <button onclick="window.location.href = 'application_manage.php';">Student</button>
+    <button onclick="window.location.href = 'program_manage.php';">Admin</button>
     <?php
         
     ?>
-</body>
+    </body>
 </html>
