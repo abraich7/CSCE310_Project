@@ -19,6 +19,9 @@
     <title>Student Links</title>
 </head>
 <body>
-    <p>Student Links</p>
+    <h1>Student Links</h1>
+    <ul>
+        <li><a href="../doc_upload">Document Upload</a></li>
+    </ul>
 </body>
 </html>
