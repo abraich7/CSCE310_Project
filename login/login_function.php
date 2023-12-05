@@ -36,6 +36,9 @@
                 } elseif ($_SESSION["user_type"] === 'Admin') {
                     header("Location: admin_links.php");
                     exit();
+                } elseif ($_SESSION["user_type"] === 'K-12') {
+                    header("Location: k12_links.php");
+                    exit();
                 }
             } else {
                 // User doesn't exist or invalid credentials

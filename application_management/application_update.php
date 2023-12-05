@@ -1,5 +1,6 @@
 <?php
     include_once "../includes/dbh.inc.php";
+    session_start();
 ?>
 
 <!DOCTYPE html>
@@ -7,40 +8,42 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Admin Program Manager </title>
+        <title> Application Manager </title>
     </head>
     <body>
-        <div> <!-- Admin: update -->
+        <div> <!-- Student: update -->
             <h1>  Edit an Application  </h1>
             
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-                <label for="app_id"> Please select an Application to be updated: </label>
+                <label for="app_id"> Select the Application you would like to edit: </label>
                 <select name="app_ids" id="app_id">
                     <?php
-                    // Get column names from the table
-                    $query = "SELECT App_Num FROM applications";
+                    // get column names from the table
+                    $curr_user_uin = $_SESSION["uin"];
+                    $query = "SELECT App_Num, UIN FROM applications WHERE UIN = '$curr_user_uin'";
                     $result = $conn->query($query);
 
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<option value=\"" . $row['App_Num'] . "\">" . $row['App_Num'] . "</option>";
-                        }
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<option value=\"" . $row['App_Num'] . "\">" . $row['App_Num']  . "</option>";
                     }
+
                     ?>
                 </select>
-
                 <br>
+
+                <!-- text feilds to build the query -->
                 <label for="non_comp"> Update your non-completed certifcation: </label><br>
                 <input type="text" id="non_comp" name="non_comp"><br>
                 <label for="comp"> Update your completed certifcation: </label><br>
                 <input type="text" id="comp" name="comp"><br>
-                <label for="purp_state"> Update your Purose Statement: </label><br>
+                <label for="purp_state"> Update your Purpose Statement: </label><br>
                 <input type="text" id="purp_state" name="purp_state"><br>
-                <input type="submit" value="Submit">
+                
+                <button type="submit"> Submit </button> <!-- recongized by the query function to save useable data -->
             </form>
 
             <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                if ($_SERVER["REQUEST_METHOD"] == "POST") { // get data back from the submit fields and build query 
                     $app_id = $_POST["app_ids"];
                     $non_comp = $_POST["non_comp"];
                     $comp = $_POST["comp"];
@@ -51,7 +54,8 @@
                 }
             ?>
             <br>
-            <button onclick="window.location.href = 'application_manage.php';"> Back </button>
+            
+            <button onclick="window.location.href = 'application_manage.php';"> Back </button> <!-- back to manage page -->
         </div>
     </body>
 </html>

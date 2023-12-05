@@ -21,7 +21,7 @@
 <body>
     <p>Student Links</p>
     <button onclick="window.location.href = '../application_management/application_manage.php';">Application Information Management</button>  <!-- Jake Student Functionality -->
-    
-    <button onclick="window.location.href = '../index.php';">Logout</button>  <!-- Jake Admin Functionality -->
+
+    <button onclick="window.location.href = '../index.php';">Logout</button>
 </body>
 </html>
