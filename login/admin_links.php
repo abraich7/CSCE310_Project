@@ -18,9 +18,11 @@
     <title>Admin Links</title>
 </head>
 <body>
-    <p>Admin Links</p>
+    <h1>Admin Links</h1>
     <button onclick="window.location.href = '../program_management/program_manage.php';">Program Information Management</button>  <!-- Jake Admin Functionality -->
-
-    <button onclick="window.location.href = '../index.php';">Logout</button>
+    <ul>
+        <li><a href="../event_management">Event Management</a></li>
+        <li><a href ="../program_management/program_manage.php">Program Information Management</a></li> <!-- Jake Admin Functionality -->
+    </ul>
 </body>
 </html>

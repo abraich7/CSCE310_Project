@@ -25,6 +25,8 @@ $result = mysqli_query($conn, $sql);
     <title>Event Management</title>
 </head>
 <body>
+    <?php include_once '../includes/navbar.php'; ?>
+
     <h1>Event Management System</h1>
 
     <!-- Link to create a new event -->

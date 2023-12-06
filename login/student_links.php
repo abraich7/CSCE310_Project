@@ -19,9 +19,9 @@
     <title>Student Links</title>
 </head>
 <body>
-    <p>Student Links</p>
-    <button onclick="window.location.href = '../application_management/application_manage.php';">Application Information Management</button>  <!-- Jake Student Functionality -->
-
-    <button onclick="window.location.href = '../index.php';">Logout</button>
+    <h1>Student Links</h1>
+    <ul>
+        <li><a href ="../application_management/application_manage.php">Application Information Management</a></li> <!-- Jake Student Functionality -->
+    </ul
 </body>
 </html>
