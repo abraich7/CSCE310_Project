@@ -7,7 +7,8 @@ CREATE TABLE Users (
     Passwords VARCHAR(255),
     User_Type VARCHAR(255),
     Email VARCHAR(255),
-    Discord_Name VARCHAR(255)
+    Discord_Name VARCHAR(255),
+    Account_Active BOOLEAN
 );
 
 CREATE TABLE Programs (

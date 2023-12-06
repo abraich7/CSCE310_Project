@@ -2,29 +2,36 @@
     include_once '../includes/dbh.inc.php';
     include_once '../includes/navbar.php';
 
-    // confirm user is an admin
+    // confirm user is a student
     session_start();
 
-    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'student') {
+    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
         // Redirect to login page or display error message
         header("Location: login.php"); // Redirect to login page
         exit();
-    }
-
-    $UIN = $_SESSION['uin'];
-
-    $sql_college_student = "SELECT * FROM college_student WHERE UIN = $UIN;";
-    $sql_user = "SELECT * FROM users WHERE UIN = $UIN;";
-    $result_college_student = $conn->query($sql_college_student);
-    $result_user = $conn->query($sql_user);
-
-    if ($result_college_student->num_rows > 0) {
-        // Output data of each row
-        $row = $result_college_student->fetch_assoc();
-        $row2 = $result_user->fetch_assoc();
     }   
+
+    if(isset($_GET['uin'])) {
+        $UIN = $_GET['uin'];
+
+        // Fetch user details from the database based on the provided UIN
+        $sql_college_student = "SELECT * FROM college_student WHERE UIN = $UIN;";
+        $sql_user = "SELECT * FROM users WHERE UIN = $UIN;";
+        $result_college_student = $conn->query($sql_college_student);
+        $result_user = $conn->query($sql_user);
+
+        if(mysqli_num_rows($result_college_student) > 0) {
+            $row = $result_college_student->fetch_assoc();
+            $row2 = $result_user->fetch_assoc();
+        } else {
+            echo "Error";
+        }
+    } else {
+        echo "Error";
+    }
 ?>
 
+<button onclick="window.location.href = '../user_management/index.php';">Back</button>
 <h1>Student Profile</h1>
 <table>
     <tr>
@@ -102,10 +109,3 @@
         <td><?php echo $row['Expected_Graduation']; ?></td>
     </tr>
 </table>
-
-
-<ul>
-    <li><a href="edit_profile.php">Edit Profile</a></li>
-    <li><a href="login_credentials.php">Change Login Credentials</a></li>
-    <li><a href="delete_profile.php">Delete Account</a></li>
-</ul
