@@ -1,6 +1,7 @@
 <?php
-    include_once "../includes/dbh.inc.php";
     session_start();
+    include_once "../includes/dbh.inc.php";
+    include_once '../includes/navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -37,15 +38,13 @@
             <?php
                 if ($_SERVER["REQUEST_METHOD"] == "POST") { // get data back from the submit fields and build query 
                     $uin = $_SESSION["uin"];
-                    $app_id = $_POST["app_id"];
+                    $app_id = $_POST["app_ids"];
               
                     $sql = "DELETE FROM applications WHERE App_Num = '$app_id' AND UIN = '$uin'";
                     $conn->query($sql);
                 }
             ?>
-            <br>
-            
-            <button onclick="window.location.href = 'application_manage.php';"> Back </button> <!-- back to manage page -->
+            <br>         
         </div>
     </body>
 </html>

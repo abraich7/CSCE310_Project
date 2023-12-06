@@ -1,6 +1,7 @@
 <?php
-    include_once "../includes/dbh.inc.php";
     session_start();
+    include_once "../includes/dbh.inc.php";
+    include_once '../includes/navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -78,12 +79,10 @@
                     echo "Uncompleted Certification(s): $col4<br>";
                     echo "Completed Certification(s): $col5<br>";
                     echo "Purpose Statement: $col6<br>";
-                    echo "Application Status: $col8<br>";
+                    echo "Status: $col8<br>";
                 }
             ?>
-            <br>
-            
-            <button onclick="window.location.href = 'application_manage.php';"> Back </button> <!-- back to manage page -->
+            <br>      
         </div>
     </body>
 </html>

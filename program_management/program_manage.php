@@ -1,6 +1,7 @@
 <?php
-    include_once "../includes/dbh.inc.php";
     session_start();
+    include_once "../includes/dbh.inc.php";
+    include_once '../includes/navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +21,5 @@
         <button onclick="window.location.href = 'program_delete.php';"> Remove a Program </button><br> <!-- Admin: delete -->
         <br>
         <br>
-        <button onclick="window.location.href = '../login/admin_links.php';"> Back </button>
     </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
-    include_once "../includes/dbh.inc.php";
     session_start();
+    include_once "../includes/dbh.inc.php";
+    include_once '../includes/navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -14,16 +15,16 @@
         <div> <!-- Admin: delete -->
             <h1> Remove an existing program </h1>
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-            <label for="columns"> Please select a program to be deleted [in format Program Number -- Program Name]</label>
+            <label for="columns"> Please select a program to be deleted [in format Program Name]</label>
                 <select name="column" id="columns">
                     <?php
                     // Get column names from the table
-                    $query = "SELECT Program_Num, Name FROM Programs";
+                    $query = "SELECT Name FROM Programs";
                     $result = $conn->query($query);
 
                     if ($result->num_rows > 0) {    // build drop down menu of programs
                         while ($row = $result->fetch_assoc()) {
-                            echo "<option value=\"" . $row['Program_Num'] . $row['Name'] . "\">" . $row['Program_Num'] . " -- " . $row['Name'] . "</option>";
+                            echo "<option value=\"" .  $row['Name'] . "\">" . $row['Name'] . "</option>";
                         }
                     }
                     ?>
@@ -35,21 +36,13 @@
 
             <?php
                 if ($_SERVER["REQUEST_METHOD"] == "POST") { // get data back from the submit fields and build query
-                    $col_name = $_POST["column"];
-                    $Pnum = substr($col_name, 0, 5);
-                    $Pname = substr($col_name, 5, strlen($col_name));
-                    echo strlen($col_name);
-                    echo $Pnum;
-                    echo "<br>";
-                    echo $Pname;               
-
-                    $sql = "DELETE FROM programs WHERE Program_Num = '$Pnum' AND Name = '$Pname'";
+                    $Pname = $_POST["column"];
+                    $sql = "DELETE FROM programs WHERE Name = '$Pname'";
                     $conn->query($sql);
                 }
             ?>  
             
             <br>
-            <button onclick="window.location.href = 'program_manage.php';"> Back </button> <!-- back to manage page -->
         </div>
     </body>
 </html>
