@@ -1,6 +1,10 @@
+// Admin Program Select Functionality
+// File Completed By: Jake Rounds
+
 <?php
-    include_once "../includes/dbh.inc.php";
     session_start();
+    include_once "../includes/dbh.inc.php";
+    include_once '../includes/navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -11,26 +15,49 @@
         <title> Program Manager </title>
     </head>
     <body>
-        <div> <!-- Admin: delete -->
+        <div> <!-- Admin: select -->
             <h1> Generate Programs report </h1>
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                <label for="columns"> Please select a program: </label>
+                <select name="column" id="columns">
+                    <?php
+                    // Get column names from the table
+                    $query = "SELECT Name FROM Programs";
+                    $result = $conn->query($query);
+
+                    if ($result->num_rows > 0) {    // build drop down menu of programs
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<option value=\"" . $row['Name'] . "\">" . $row['Name'] . "</option>";
+                        }
+                    }
+                    ?>
+                </select>
                 <button type="submit"> Gnerate </button> <!-- recongized by the query function to save useable data -->
             </form>
 
             <?php
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                    //$Pnum = $_POST["Pnum"];
+                    $Pname = $_POST["column"];
+
+                    // save program number for future refrence, easier than name
+                    $sql = "SELECT Program_Num FROM Programs WHERE Name = '$Pname'";
+                    $result = $conn->query($sql);
+                    $row = $result->fetch_assoc();
+                    $Pnum = $row['Program_Num']; 
 
                     // number of total [Progam] students
-                    echo "Number of students enrolled in all programs: ";
-                    $sql = "SELECT * FROM track";
+                    echo "Number of students enrolled in $Pname : ";
+                    $sql = "SELECT * FROM track WHERE Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     echo $result->num_rows;
                     echo "<br><br>";
 
                     // number of students to complete all course and certification opportunities.
-                    echo "Number of students working on certifactions: ";
-                    $sql = "SELECT * FROM cert_enrollment";
+                    echo "Number of students to compelte all course and certifcation oppounities within this porgram: ";
+                    $sql = "SELECT Cert_Enrollment.status 
+                    FROM Cert_Enrollment
+                    LEFT JOIN Track ON Cert_Enrollment.UIN = Track.UIN
+                    WHERE Cert_Enrollment.status = 'Complete' AND Track.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     echo $result->num_rows;
                     echo "<br><br>";
@@ -53,55 +80,62 @@
    
                     // number of students electing to take additional strategic foreign language courses.
                     echo "Number of students opting to take additional foreign langauge courses: ";
-                    $sql = "SELECT * FROM track_to_classes WHERE Type = 'Foreign Language'";
+                    $sql = "SELECT * FROM track_to_classes WHERE Program_Num = '$Pnum' AND Type = 'Foreign Language'";
                     $result = $conn->query($sql);
                     echo $result->num_rows;
                     echo "<br><br>";
 
                     // the number of students electing to take other cryptography and cryptographic mathematics courses.
                     echo "Number of students opting to take additional crpytography and cryptographic mathematics courses: ";
-                    $sql = "SELECT * FROM track_to_classes WHERE Type = 'Cryptography' OR Type = 'Cryptographic Mathematics'";
+                    $sql = "SELECT * FROM track_to_classes WHERE Program_Num = '$Pnum' AND Type = 'Cryptography' OR Type = 'Cryptographic Mathematics'";
                     $result = $conn->query($sql);
                     echo $result->num_rows;
                     echo "<br><br>";
 
                     // number of students electing to carry additional data science and related courses.
                     echo "Number of students opting to take additional data science courses: ";
-                    $sql = "SELECT * FROM track_to_classes WHERE Type = 'Data Science'";
+                    $sql = "SELECT * FROM track_to_classes WHERE Program_Num = '$Pnum' AND Type = 'Data Science'";
                     $result = $conn->query($sql);
                     echo $result->num_rows;
                     echo "<br><br>";
 
-                    // create index for Cert_Enrollment table 
-
                     // number of students to enrolled in DoD 8570.01M preparation training courses.
                     echo "Number of students to enroll in DoD 8570.01M trainging courses: ";
-                    $sql = "SELECT * FROM cert_enrollment WHERE training_status = 'Enrolled'";
+                    $sql = "SELECT Cert_Enrollment.training_status 
+                    FROM Cert_Enrollment
+                    LEFT JOIN Track ON Cert_Enrollment.UIN = Track.UIN
+                    WHERE Cert_Enrollment.training_status = 'Enrolled' AND Track.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     echo $result->num_rows;
                     echo "<br><br>";
 
                     // number of students to complete DoD 8570.01M preparation training courses.
                     echo "Number of students to complete DoD 8570.01M trainging courses: ";
-                    $sql = "SELECT * FROM cert_enrollment WHERE training_status = 'Complete'";
+                    $sql = "SELECT Cert_Enrollment.training_status 
+                    FROM Cert_Enrollment
+                    LEFT JOIN Track ON Cert_Enrollment.UIN = Track.UIN
+                    WHERE Cert_Enrollment.training_status = 'Completed' AND Track.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     echo $result->num_rows;
                     echo "<br><br>";
 
                     // number of students to complete a DoD 8570.01M certification examination.
                     echo "Number of students to complete in DoD 8570.01M trainging examination: ";
-                    $sql = "SELECT * FROM cert_enrollment WHERE training_status = 'Certified'";
+                    $sql = "SELECT Cert_Enrollment.training_status 
+                    FROM Cert_Enrollment
+                    LEFT JOIN Track ON Cert_Enrollment.UIN = Track.UIN
+                    WHERE Cert_Enrollment.training_status = 'Certified' AND Track.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     echo $result->num_rows;
                     echo "<br><br>";
 
                     // minority participation 
                     echo "Minority participation percentage: ";
-                    $sql = "SELECT Race FROM Track LEFT JOIN College_Student ON Track.UIN = College_Student.UIN WHERE Race = 'White'";
+                    $sql = "SELECT Race FROM Track LEFT JOIN College_Student ON Track.UIN = College_Student.UIN WHERE Race = 'White' AND Track.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     $num_white_people = $result->num_rows;
 
-                    $sql = "SELECT Race FROM Track LEFT JOIN College_Student ON Track.UIN = College_Student.UIN";
+                    $sql = "SELECT Race FROM Track LEFT JOIN College_Student ON Track.UIN = College_Student.UIN WHERE Track.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     $total_people = $result->num_rows;
                     echo (1-$num_white_people/$total_people)*100, "%";
@@ -109,42 +143,57 @@
 
                     // the number of K-12 students enrolled in summer camps; each program has summer camps. The students are applying to be a part of the summer camps.
                     echo "Number of K-12 students enrolled in summer camps: ";
-                    $sql = "SELECT * FROM Users WHERE User_Type = 'K-12'";
+                    $sql = "SELECT Track.UIN 
+                    FROM Track
+                    LEFT JOIN Event_Tracking ON Event_Tracking.UIN = Track.UIN
+                    WHERE Track.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     echo $result->num_rows;
                     echo "<br><br>";
 
                     // number of students with submitted internship application
                     echo "Number of students with submitted internship applications: ";
-                    $sql = "SELECT * FROM Intern_App WHERE Status = 'Applied'";
+                    $sql = "SELECT Intern_App.Status 
+                    FROM Intern_App
+                    LEFT JOIN Track ON Intern_App.UIN = Track.UIN
+                    WHERE Intern_App.Status = 'Applied' AND Track.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     echo $result->num_rows;
                     echo "<br><br>";
                     
                     // number of students with accepted internship applications
                     echo "Number of students with accepted internship applications: ";
-                    $sql = "SELECT * FROM Intern_App WHERE Status = 'Accepted'";
+                    $sql = "SELECT Intern_App.Status 
+                    FROM Intern_App
+                    LEFT JOIN Track ON Intern_App.UIN = Track.UIN
+                    WHERE Intern_App.Status = 'Accepted' AND Track.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     echo $result->num_rows;
                     echo "<br><br>";
 
                     // number of students with rejected internship applications
                     echo "Number of students with with rejected internship applications: ";
-                    $sql = "SELECT * FROM Intern_App WHERE Status = 'Rejected'";
+                    $sql = "SELECT Intern_App.Status 
+                    FROM Intern_App
+                    LEFT JOIN Track ON Intern_App.UIN = Track.UIN
+                    WHERE Intern_App.Status = 'Rejected' AND Track.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     echo $result->num_rows;
                     echo "<br><br>";
 
                     // number of students who took an internship
                     echo "Number of students who took an internship: ";
-                    $sql = "SELECT * FROM Intern_App WHERE Status = 'Taken'";
+                    $sql = "SELECT Intern_App.Status 
+                    FROM Intern_App
+                    LEFT JOIN Track ON Intern_App.UIN = Track.UIN
+                    WHERE Intern_App.Status = 'Taken' AND Track.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     echo $result->num_rows;
                     echo "<br><br>";
 
                     // student majors
                     echo "List of student majors [in format UIN -- Major]: ";
-                    $sql = "SELECT cs.Major, cs.UIN FROM College_Student cs LEFT JOIN Track t ON t.UIN = cs.UIN";
+                    $sql = "SELECT cs.Major, cs.UIN FROM College_Student cs LEFT JOIN Track t ON t.UIN = cs.UIN WHERE t.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     while ($row = $result->fetch_assoc()) {
                         echo "<option value=\"" . $row['UIN'] . $row['Major'] . "\">" . $row['UIN'] . " -- " . $row['Major'] . "</option>";
@@ -168,7 +217,10 @@
 
                     // student internship locations
                     echo "List of taken student internship locations [in format UIN -- Location]: ";
-                    $sql = "SELECT UIN, Location FROM uin_to_loaction_taken";
+                    $sql = "SELECT uin_to_loaction_taken.UIN, uin_to_loaction_taken.Location 
+                    FROM uin_to_loaction_taken
+                    LEFT JOIN Track ON uin_to_loaction_taken.UIN = Track.UIN
+                    WHERE Track.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     while ($row = $result->fetch_assoc()) {
                         echo "<option value=\"" . $row['UIN'] . $row['Location'] . "\">" . $row['UIN'] . " -- " . $row['Location'] . "</option>";
@@ -176,7 +228,6 @@
                 }
             ?>
             <br>
-            <button onclick="window.location.href = 'program_manage.php';"> Back </button> <!-- back to manage page -->
         </div>
     </body>
 </html>

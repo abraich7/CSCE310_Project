@@ -1,6 +1,10 @@
+// Student Application Delete Functionality
+// File Completed By: Jake Rounds
+
 <?php
-    include_once "../includes/dbh.inc.php";
     session_start();
+    include_once "../includes/dbh.inc.php";
+    include_once '../includes/navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +19,7 @@
             <h1> Delete an Application </h1>
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
                 <!-- text feilds to build the query -->
-                <label for="app_id"> Select the Application you would like to delete: </label>
+                <label for="app_id"> Select the Application you would like to delete: </label>  // program select drop down
                 <select name="app_ids" id="app_id">
                     <?php
                     // get column names from the table
@@ -37,15 +41,13 @@
             <?php
                 if ($_SERVER["REQUEST_METHOD"] == "POST") { // get data back from the submit fields and build query 
                     $uin = $_SESSION["uin"];
-                    $app_id = $_POST["app_id"];
+                    $app_id = $_POST["app_ids"];
               
                     $sql = "DELETE FROM applications WHERE App_Num = '$app_id' AND UIN = '$uin'";
                     $conn->query($sql);
                 }
             ?>
-            <br>
-            
-            <button onclick="window.location.href = 'application_manage.php';"> Back </button> <!-- back to manage page -->
+            <br>         
         </div>
     </body>
 </html>
