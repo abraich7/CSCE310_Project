@@ -1,6 +1,10 @@
+// Student Application Insert Functionality
+// File Completed By: Jake Rounds
+
 <?php
-    include_once "../includes/dbh.inc.php";
     session_start();
+    include_once "../includes/dbh.inc.php";
+    include_once '../includes/navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -65,8 +69,6 @@
                 }
             ?>
             <br>
-            
-            <button onclick="window.location.href = 'application_manage.php';"> Back </button> <!-- back to manage page -->
         </div>
     </body>
 </html>
