@@ -1,37 +1,35 @@
 <?php
     include_once '../includes/dbh.inc.php';
     include_once '../includes/navbar.php';
+
+    // confirm user is a student
     session_start();
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['delete_account'])) {
-            
-            $UIN = $_SESSION['uin']; 
-            
-            
-            // HTML confirmation message
-            echo "<h2>Are you sure you want to delete your account?</h2>";
-            echo "<p>This action is permanent and cannot be undone.</p>";
-            echo "<form method='post'>";
-            echo "<input type='submit' name='confirm_delete' value='Delete Account'>";
-            echo "<button onclick=\"window.location.href = 'index.php';\">Back</button>";
-            echo "</form>";
-            
-            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['confirm_delete'])) {
-                // Run SQL query to delete the user's account
-                $sql = "DELETE FROM users WHERE UIN = $uin";
-                if (mysqli_query($conn, $sql)) {
-                    // Account deleted successfully
-                    // Redirect or display a message
-                    header("Location: account_deleted.php"); // Redirect to a page indicating account deletion
-                    exit();
-                } else {
-                    // Error in SQL query
-                    echo "Error deleting account: " . mysqli_error($conn);
-                }
-            }
-        }
+    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'student') {
+        header("Location: login.php");
+        exit();
     }
+
+    $UIN = $_SESSION['uin'];
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Your Account</title>
+</head>
+<h1>Delete Confirmation</h1>
+<body>
+    <p>Use this page to delete your account from the website.</p>
+    <span>
+        <button onclick="window.location.href = 'index.php';">Back</button>
+        <form action="delete_profile_function.php" method="post">
+            <input type="submit" name="delete_account" value="Delete Account" onclick="return confirm('Are you sure you want to delete your account? This action is permanent and cannot be undone.');">
+        </form>
+    </span>
+</body>
+</html>
 
   
