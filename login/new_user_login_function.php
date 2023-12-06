@@ -27,10 +27,10 @@
                 if ($_SESSION["user_type"] === 'student') {
                     header("Location: student_links.php");
                     exit();
-                } elseif ($_SESSION["user_type"] === 'Admin') {
+                } elseif ($_SESSION["user_type"] === 'admin') {
                     header("Location: admin_links.php");
                     exit();
-                }elseif ($_SESSION["user_type"] === 'K-12') {
+                }elseif ($_SESSION["user_type"] === 'k-12') {
                     header("Location: k12_links.php");
                     exit();
                 }
