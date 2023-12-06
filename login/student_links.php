@@ -23,6 +23,7 @@
     <h1>Student Links</h1>
     <ul>
         <li><a href ="../application_management/application_manage.php">Application Information Management</a></li> <!-- Jake Student Functionality -->
+        <li><a href ="../student_profile/index.php">Student Profile</a></li> <!-- Jacob Student Functionality -->
     </ul
 </body>
 </html>
