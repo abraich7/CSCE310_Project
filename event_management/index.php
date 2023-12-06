@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
+    // Redirect to login page or display error message
+    header("Location: ../login.php"); // Redirect to login page
+    exit();
+}
+
 include_once '../includes/dbh.inc.php'; // Include the database connection file
 
 // Fetch events with associated program names and creator's information
@@ -19,6 +25,8 @@ $result = mysqli_query($conn, $sql);
     <title>Event Management</title>
 </head>
 <body>
+    <?php include_once '../includes/navbar.php'; ?>
+
     <h1>Event Management System</h1>
 
     <!-- Link to create a new event -->

@@ -1,9 +1,9 @@
 <?php
 session_start(); // Starting the session
 
-if (!isset($_SESSION["uin"])) {
-    // Redirect to login or handle the case where the user is not logged in
-    header("Location: login.php");
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
+    // Redirect to login page or display error message
+    header("Location: ../login.php"); // Redirect to login page
     exit();
 }
 

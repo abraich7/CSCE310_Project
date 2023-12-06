@@ -27,9 +27,6 @@
                 $_SESSION["uin"] = $row['UIN'];
                 $_SESSION["user_type"] = $row['User_Type'];
 
-                echo $_SESSION["UIN"];
-                echo $_SESSION["user_type"];
-
                 if ($_SESSION["user_type"] === 'student') {
                     header("Location: student_links.php");
                     exit();
