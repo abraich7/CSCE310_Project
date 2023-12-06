@@ -1,3 +1,6 @@
+-- Script for universal database setup
+-- File Completed By: Group 9
+
 CREATE TABLE Users (
     UIN INT PRIMARY KEY,
     First_Name VARCHAR(255),

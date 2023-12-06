@@ -1,3 +1,6 @@
+-- Script for universal database setup
+-- File Completed By: Group 9
+
 -- Users Table
 INSERT INTO Users (UIN, First_Name, M_Initial, Last_Name, Username, Passwords, User_Type, Email, Discord_Name)
 VALUES (1, 'John', 'D', 'Doe', 'johndoe', 'password123', 'admin', 'john@example.com', 'JohnDoe#123'),
