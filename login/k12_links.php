@@ -1,5 +1,6 @@
 <?php
     include_once "../includes/dbh.inc.php";
+    include_once '../includes/navbar.php';
     session_start();
 ?>
 

@@ -20,11 +20,10 @@
 </head>
 <body>
     <h1>Admin Links</h1>
-    <button onclick="window.location.href = '../program_management/program_manage.php';">Program Information Management</button>  <!-- Jake Admin Functionality -->
     <ul>
-        <li><a href="../event_management">Event Management</a></li>
+        <li><a href="../event_management">Event Management</a></li> <!-- Mario Admin Functionality -->
         <li><a href ="../program_management/program_manage.php">Program Information Management</a></li> <!-- Jake Admin Functionality -->
-        <li><a href="../doc_upload">Document Upload</a></li>
+        <li><a href ="../program_progress_tracking/index.php">Program Progress Tracking</a></li> <!-- Anoop Admin Functionality -->
     </ul>
 </body>
 </html>
