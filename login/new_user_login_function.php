@@ -12,7 +12,7 @@
             $last_name = $_POST['Last_Name'];
             $username = $_POST['Username'];
             $password = $_POST['Passwords'];
-            $user_type = "Student";
+            $user_type = $_POST['User_Type'];
             $email = $_POST['Email'];
             $discord_name = $_POST['Discord_Name'];
     
@@ -27,8 +27,11 @@
                 if ($_SESSION["user_type"] === 'student') {
                     header("Location: student_links.php");
                     exit();
-                } elseif ($_SESSION["user_type"] === 'admin') {
+                } elseif ($_SESSION["user_type"] === 'Admin') {
                     header("Location: admin_links.php");
+                    exit();
+                }elseif ($_SESSION["user_type"] === 'K-12') {
+                    header("Location: k12_links.php");
                     exit();
                 }
             } else {

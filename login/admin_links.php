@@ -3,7 +3,7 @@
 
     session_start();
 
-    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
+    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'Admin') {
         // Redirect to login page or display error message
         header("Location: login.php"); // Redirect to login page
         exit();
@@ -19,8 +19,10 @@
 </head>
 <body>
     <h1>Admin Links</h1>
+    <button onclick="window.location.href = '../program_management/program_manage.php';">Program Information Management</button>  <!-- Jake Admin Functionality -->
     <ul>
         <li><a href="../event_management">Event Management</a></li>
+        <li><a href ="../program_management/program_manage.php">Program Information Management</a></li> <!-- Jake Admin Functionality -->
     </ul>
 </body>
 </html>
