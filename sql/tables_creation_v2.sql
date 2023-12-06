@@ -52,7 +52,7 @@ CREATE TABLE College_Student (
     Expected_Graduation SMALLINT,
     School VARCHAR(255),
     Classification VARCHAR(255),
-    Phone INT,
+    Phone VARCHAR(255),
     Student_Type VARCHAR(255),
     FOREIGN KEY (UIN) REFERENCES Users(UIN)
 );

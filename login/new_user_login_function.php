@@ -25,7 +25,7 @@
                 $_SESSION["user_type"] = $user_type;
 
                 if ($_SESSION["user_type"] === 'student') {
-                    header("Location: student_links.php");
+                    header("Location: college_student_creation.php");
                     exit();
                 } elseif ($_SESSION["user_type"] === 'admin') {
                     header("Location: admin_links.php");
