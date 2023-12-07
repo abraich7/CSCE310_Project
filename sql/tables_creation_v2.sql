@@ -176,3 +176,6 @@ CREATE VIEW doc_uploads_view AS
 SELECT d.Doc_Num, d.App_Num, d.Link, d.Doc_Type, a.UIN
 FROM Document d
 JOIN Applications a ON d.App_Num = a.app_num;
+
+-- Mario Index 1 (Document Upload and Management)
+CREATE INDEX idx_UIN ON applications (UIN);
