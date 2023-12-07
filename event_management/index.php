@@ -1,9 +1,9 @@
 <?php
 session_start();
 
+// If not admin
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
-    // Redirect to login page or display error message
-    header("Location: ../login.php"); // Redirect to login page
+    header("Location: .."); // Redirect to login page
     exit();
 }
 
@@ -12,8 +12,8 @@ include_once '../includes/dbh.inc.php'; // Include the database connection file
 // Fetch events with associated program names and creator's information
 $sql = "SELECT * FROM EventDetails";
 $result = mysqli_query($conn, $sql);
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +21,17 @@ $result = mysqli_query($conn, $sql);
     <title>Event Management</title>
 </head>
 <body>
-    <?php include_once '../includes/navbar.php'; ?>
+    <?php include_once '../includes/navbar.php'; 
+
+    if (isset($_GET['delete_status'])) {
+        echo "<p>" . $_GET['delete_status'] . "</p>";
+    }
+
+    if (isset($_GET['create_status'])) {
+        echo "<p>" . $_GET['create_status'] . "</p>";
+    }
+
+    ?>
 
     <h1>Event Management System</h1>
 
