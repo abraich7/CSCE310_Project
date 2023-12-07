@@ -10,11 +10,7 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
 include_once '../includes/dbh.inc.php'; // Include the database connection file
 
 // Fetch events with associated program names and creator's information
-$sql = "SELECT Event.*, Programs.Name AS Program_Name, 
-        CONCAT(Users.First_Name, ' ', Users.Last_Name, ' (', Users.UIN, ')') AS Creator_Info 
-        FROM Event 
-        LEFT JOIN Programs ON Event.Program_Num = Programs.Program_Num
-        LEFT JOIN Users ON Event.UIN = Users.UIN";
+$sql = "SELECT * FROM EventDetails";
 $result = mysqli_query($conn, $sql);
 
 ?>
