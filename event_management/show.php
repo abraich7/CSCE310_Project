@@ -10,24 +10,19 @@
     <?php
     session_start();
 
+   // If not admin
     if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
-        // Redirect to login page or display error message
-        header("Location: ../login.php"); // Redirect to login page
+        header("Location: .."); // Redirect to login page
         exit();
     }
-    
+
     include_once '../includes/dbh.inc.php'; // Include the database connection file
 
     if (isset($_GET['event_id'])) {
         $event_id = $_GET['event_id'];
 
-        // Fetch event details with the associated program name and creator's information
-        $sql = "SELECT Event.*, Programs.Name AS Program_Name, 
-                CONCAT(Users.First_Name, ' ', Users.M_Initial, '. ', Users.Last_Name, ' (', Users.UIN, ')') AS Creator_Info 
-                FROM Event 
-                LEFT JOIN Programs ON Event.Program_Num = Programs.Program_Num 
-                LEFT JOIN Users ON Event.UIN = Users.UIN 
-                WHERE Event.Event_ID = $event_id";
+        // Fetch event details using the created view EventDetails based on the provided Event_ID
+        $sql = "SELECT * FROM EventDetails WHERE Event_ID = $event_id";
         $result = mysqli_query($conn, $sql);
 
         if ($result && mysqli_num_rows($result) > 0) {
@@ -43,22 +38,20 @@
             echo "<p><strong>Event Type:</strong> " . $row['Event_Type'] . "</p>";
             echo "<p><strong>Creator:</strong> " . $row['Creator_Info'] . "</p>";
 
-            // Fetch and display attendees of the event
-            $sql_attendees = "SELECT Users.* FROM Users 
-                              INNER JOIN Event_Tracking ON Users.UIN = Event_Tracking.UIN 
-                              WHERE Event_Tracking.Event_ID = $event_id";
+            // Display attendees of the event
+            echo "<h2>Event Attendees</h2>";
+            echo "<table border='1'>";
+            echo "<tr>
+                    <th>UIN</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                  </tr>";
+
+            $sql_attendees = "SELECT * FROM Attendees WHERE Event_ID = $event_id";
             $result_attendees = mysqli_query($conn, $sql_attendees);
 
             if ($result_attendees && mysqli_num_rows($result_attendees) > 0) {
-                echo "<h2>Event Attendees</h2>";
-                echo "<table border='1'>";
-                echo "<tr>
-                        <th>UIN</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                      </tr>";
-
                 while ($row_attendee = mysqli_fetch_assoc($result_attendees)) {
                     echo "<tr>";
                     echo "<td>" . $row_attendee['UIN'] . "</td>";
@@ -67,11 +60,11 @@
                     echo "<td>" . $row_attendee['Email'] . "</td>";
                     echo "</tr>";
                 }
-
-                echo "</table>";
             } else {
-                echo "<p>No attendees found for this event.</p>";
+                echo "<tr><td colspan='4'>No attendees found for this event.</td></tr>";
             }
+
+            echo "</table>";
         } else {
             echo "<p>No event details found for the provided Event ID.</p>";
         }

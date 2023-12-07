@@ -1,13 +1,15 @@
 <?php
 session_start();
 
+// If not admin
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
-    // Redirect to login page or display error message
-    header("Location: ../login.php"); // Redirect to login page
+    header("Location: .."); // Redirect to login page
     exit();
 }
 
 include_once '../includes/dbh.inc.php'; // Include the database connection file
+
+$delete_status = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_event_id'])) {
     $event_id_to_delete = $_POST['delete_event_id'];
@@ -21,16 +23,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_event_id'])) {
     $result_delete_event = mysqli_query($conn, $sql_delete_event);
 
     if ($result_delete_tracking && $result_delete_event) {
-        echo "Event and associated tracking entries deleted successfully.";
-        // Redirect to refresh the page after deletion
-        header("Location: index.php");
-        exit();
+        $delete_status = "Event and associated tracking entries deleted successfully.";
+        
     } else {
-        echo "Error deleting event: " . mysqli_error($conn);
+        $delete_status = "Error deleting event: " . mysqli_error($conn);
     }
 } else {
-    echo "Invalid request or Event ID not provided.";
+    $delete_status = "Invalid request or Event ID not provided.";
 }
+
+// Redirect to refresh the page after deletion
+header("Location: index.php?delete_status=$delete_status");
+exit();
 
 mysqli_close($conn);
 ?>

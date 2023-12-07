@@ -1,9 +1,9 @@
 <?php
 session_start();
 
+// If not admin
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
-    // Redirect to login page or display error message
-    header("Location: ../login.php"); // Redirect to login page
+    header("Location: .."); // Redirect to login page
     exit();
 }
 

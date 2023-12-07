@@ -180,3 +180,16 @@ JOIN Applications a ON d.App_Num = a.app_num;
 
 -- Mario Index 1 (Document Upload and Management)
 CREATE INDEX idx_UIN ON applications (UIN);
+
+-- Mario View 2 (Event Management)
+CREATE VIEW EventDetails AS
+SELECT Event.Event_ID, Programs.Name AS Program_Name, 
+       Event.Start_Date, Event.Start_Time, Event.Location, 
+       Event.End_Date, Event.End_Time, Event.Event_Type,
+       CONCAT(Users.First_Name, ' ', Users.Last_Name, ' (', Users.UIN, ')') AS Creator_Info
+FROM Event 
+LEFT JOIN Programs ON Event.Program_Num = Programs.Program_Num
+LEFT JOIN Users ON Event.UIN = Users.UIN;
+
+-- Mario Index 2 (Event Management)
+CREATE INDEX idx_programs_name ON Programs (Name);
