@@ -24,6 +24,11 @@
 
                 $row = mysqli_fetch_assoc($result_user_type);
 
+                if ($row['Account_Active'] == false) {
+                    header("Location: login.php");
+                    exit();
+                }
+
                 $_SESSION["uin"] = $row['UIN'];
                 $_SESSION["user_type"] = $row['User_Type'];
 
