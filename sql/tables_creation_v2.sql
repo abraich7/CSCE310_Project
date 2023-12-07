@@ -190,3 +190,6 @@ SELECT Event.Event_ID, Programs.Name AS Program_Name,
 FROM Event 
 LEFT JOIN Programs ON Event.Program_Num = Programs.Program_Num
 LEFT JOIN Users ON Event.UIN = Users.UIN;
+
+-- Mario Index 2 (Event Management)
+CREATE INDEX idx_programs_name ON Programs (Name);
