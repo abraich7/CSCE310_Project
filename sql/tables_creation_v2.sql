@@ -170,3 +170,9 @@ CREATE VIEW uin_to_loaction_taken AS SELECT
 
 -- Jake index 1
 CREATE INDEX easy_cert ON cert_enrollment (UIN, Training_Status);
+
+-- Mario View 1 (Document Upload and Management)
+CREATE VIEW doc_uploads_view AS
+SELECT d.Doc_Num, d.App_Num, d.Link, d.Doc_Type, a.UIN
+FROM Document d
+JOIN Applications a ON d.App_Num = a.app_num;

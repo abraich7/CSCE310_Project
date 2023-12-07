@@ -28,48 +28,40 @@ $docInfoTable = '<table border="1">
 
 // Fetch app_num values from the application table for the current user
 $uin = $_SESSION['uin'];
-$appNumQuery = "SELECT app_num FROM applications WHERE UIN = '$uin'";
+$appNumQuery = "SELECT * FROM doc_uploads_view WHERE UIN = '$uin'";
 $appNumResult = mysqli_query($conn, $appNumQuery);
 
 if ($appNumResult && mysqli_num_rows($appNumResult) > 0) {
     while ($row = mysqli_fetch_assoc($appNumResult)) {
-        $appNum = $row['app_num'];
+        $appNum = $row['App_Num'];
+        $docNum = $row['Doc_Num'];
 
-        // Fetch document details based on the app_num
-        $docQuery = "SELECT * FROM Document WHERE App_Num = '$appNum'";
-        $docResult = mysqli_query($conn, $docQuery);
+        // Get the file name from the uploads directory associated with the doc_num
+        $docDirectory = "uploads/$docNum/";
+        $files = scandir($docDirectory);
+        $docFileName = isset($files[2]) ? $files[2] : ''; // Assuming the file is at the 2nd index
 
-        if ($docResult && mysqli_num_rows($docResult) > 0) {
-            while ($docRow = mysqli_fetch_assoc($docResult)) {
-                $docNum = $docRow['Doc_Num'];
+        $docDirectory = $row['Link'];
 
-                // Get the file name from the uploads directory associated with the doc_num
-                $docDirectory = "uploads/$docNum/";
-                $files = scandir($docDirectory);
-                $docFileName = isset($files[2]) ? $files[2] : ''; // Assuming the file is at the 2nd index
-
-                $docDirectory = $docRow['Link'];
-
-                $docInfoTable .= "<tr>
-                                    <td>$appNum</td>
-                                    <td>$docNum</td>
-                                    <td>$docFileName</td>
-                                    <td><a href='$docDirectory'>View</a></td>
-                                    <td>
-                                        <form action='edit.php' method='post'>
-                                            <input type='hidden' name='doc_num' value='$docNum'>
-                                            <input type='submit' name='edit' value='Edit'>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action='delete.php' method='post'>
-                                            <input type='hidden' name='doc_num' value='$docNum'>
-                                            <input type='submit' name='delete' value='Delete'>
-                                        </form>
-                                    </td>
-                                 </tr>";
-            }
-        }
+        $docInfoTable .= "<tr>
+                            <td>$appNum</td>
+                            <td>$docNum</td>
+                            <td>$docFileName</td>
+                            <td><a href='$docDirectory'>View</a></td>
+                            <td>
+                                <form action='edit.php' method='post'>
+                                    <input type='hidden' name='doc_num' value='$docNum'>
+                                    <input type='submit' name='edit' value='Edit'>
+                                </form>
+                            </td>
+                            <td>
+                                <form action='delete.php' method='post'>
+                                    <input type='hidden' name='doc_num' value='$docNum'>
+                                    <input type='submit' name='delete' value='Delete'>
+                                </form>
+                            </td>
+                            </tr>";
+            
     }
 }
 
