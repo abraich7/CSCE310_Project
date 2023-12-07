@@ -4,7 +4,7 @@ session_start();
 // Check if the user is logged in
 if (!isset($_SESSION['uin'])) {
     // Redirect to login page if not logged in
-    header("Location: ../login.php");
+    header("Location: ..");
     exit();
 }
 
@@ -24,22 +24,23 @@ if (isset($_POST['delete']) && isset($_POST['doc_num'])) {
 
         // Delete file and its parent folder
         if (file_exists($link)) {
-            unlink($link); // Delete the file
-            rmdir(dirname($link)); // Delete the parent folder
+            unlink($link);
+            rmdir(dirname($link));
         }
 
         // Delete entry from the Document table
         $delete_sql = "DELETE FROM Document WHERE Doc_Num = $doc_num";
         mysqli_query($conn, $delete_sql);
 
-        header("Location: index.php?upload_status=Document deleted successfully.");
-        exit();
+        $upload_status = "Document deleted successfully";
     } else {
-        header("Location: index.php?upload_status=Document not found.");
-        exit();
+        $upload_status = "Document not found";
     }
+    header("Location: index.php?upload_status=$upload_status");
+    exit();
 } else {
-    header("Location: index.php?upload_status=Error deleting document.");
+    // Redirect to index.php if accessed directly
+    header("Location: index.php");
     exit();
 }
 ?>

@@ -6,7 +6,7 @@ $upload_status = '';
 // Check if the user is logged in
 if (!isset($_SESSION['uin'])) {
     // Redirect to login page if not logged in
-    header("Location: ../login.php");
+    header("Location: ..");
     exit();
 }
 
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["document"])) {
             mysqli_stmt_bind_param($stmt, "iss", $app_num, $target_file, $doc_type);
             mysqli_stmt_execute($stmt);
 
-            $doc_num = mysqli_insert_id($conn); // Get the document ID (assuming it's an auto-incremented PK)
+            $doc_num = mysqli_insert_id($conn); // Get the document ID (It's an auto-incremented PK)
 
             $new_directory = $user_directory . $doc_num . "/";
             mkdir($new_directory, 0777, true); // Create directory with doc_num as its name
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["document"])) {
             rename($target_file, $new_directory . $file_name); // Move file to the newly created directory
             $upload_status = "The file " . htmlspecialchars($file_name) . " has been uploaded.";
 
-            // Update link to document
+            // Update link in DB document table
             $new_link = $new_directory . "/" . $file_name;
             $sql_replace_link = "UPDATE Document SET Link = '$new_link' WHERE Doc_Num = $doc_num";
             $stmt_replace_link = mysqli_prepare($conn, $sql_replace_link);
