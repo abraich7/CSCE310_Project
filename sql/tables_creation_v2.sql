@@ -1,3 +1,6 @@
+-- Script for universal database setup
+-- File Completed By: Group 9
+
 CREATE TABLE Users (
     UIN INT PRIMARY KEY,
     First_Name VARCHAR(255),
@@ -7,7 +10,8 @@ CREATE TABLE Users (
     Passwords VARCHAR(255),
     User_Type VARCHAR(255),
     Email VARCHAR(255),
-    Discord_Name VARCHAR(255)
+    Discord_Name VARCHAR(255),
+    Account_Active BOOLEAN
 );
 
 CREATE TABLE Programs (
@@ -27,7 +31,8 @@ CREATE TABLE Internship (
     Intern_ID INT PRIMARY KEY AUTO_INCREMENT,
     Name VARCHAR(255),
     Description VARCHAR(255),
-    Is_Gov BINARY
+    Is_Gov BINARY,
+    Location VARCHAR(255)
 );
 
 CREATE TABLE Classes (
@@ -52,9 +57,9 @@ CREATE TABLE College_Student (
     Expected_Graduation SMALLINT,
     School VARCHAR(255),
     Classification VARCHAR(255),
-    Phone INT,
+    Phone VARCHAR(255),
     Student_Type VARCHAR(255),
-    FOREIGN KEY (UIN) REFERENCES Users(UIN)
+    FOREIGN KEY (UIN) REFERENCES Users(UIN) ON DELETE CASCADE
 );
 
 CREATE TABLE Class_Enrollment (
@@ -64,8 +69,8 @@ CREATE TABLE Class_Enrollment (
     Status VARCHAR(255),
     Semester VARCHAR(255),
     Year YEAR,
-    FOREIGN KEY (UIN) REFERENCES College_Student(UIN),
-    FOREIGN KEY (Class_ID) REFERENCES Classes(Class_ID)
+    FOREIGN KEY (UIN) REFERENCES College_Student(UIN) ON DELETE CASCADE,
+    FOREIGN KEY (Class_ID) REFERENCES Classes(Class_ID) ON DELETE CASCADE
 );
 
 CREATE TABLE Intern_App (
@@ -74,8 +79,8 @@ CREATE TABLE Intern_App (
     Intern_ID INT,
     Status VARCHAR(255),
     Year YEAR,
-    FOREIGN KEY (UIN) REFERENCES College_Student(UIN),
-    FOREIGN KEY (Intern_ID) REFERENCES Internship(Intern_ID)
+    FOREIGN KEY (UIN) REFERENCES College_Student(UIN) ON DELETE CASCADE,
+    FOREIGN KEY (Intern_ID) REFERENCES Internship(Intern_ID) ON DELETE CASCADE
 );
 
 CREATE TABLE Cert_Enrollment (
@@ -87,17 +92,17 @@ CREATE TABLE Cert_Enrollment (
     Program_Num INT,
     Semester VARCHAR(255),
     Year YEAR,
-    FOREIGN KEY (UIN) REFERENCES College_Student(UIN),
-    FOREIGN KEY (Cert_ID) REFERENCES Certification(Cert_ID),
-    FOREIGN KEY (Program_Num) REFERENCES Programs(Program_Num)
+    FOREIGN KEY (UIN) REFERENCES College_Student(UIN) ON DELETE CASCADE,
+    FOREIGN KEY (Cert_ID) REFERENCES Certification(Cert_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Program_Num) REFERENCES Programs(Program_Num) ON DELETE CASCADE
 );
 
 CREATE TABLE Track (
     Tracking_Num INT PRIMARY KEY AUTO_INCREMENT,
     Program_Num INT,
-    Student_Num INT,
-    FOREIGN KEY (Program_Num) REFERENCES Programs(Program_Num),
-    FOREIGN KEY (Student_Num) REFERENCES College_Student(UIN)
+    UIN INT,
+    FOREIGN KEY (Program_Num) REFERENCES Programs(Program_Num) ON DELETE CASCADE,
+    FOREIGN KEY (UIN) REFERENCES College_Student(UIN) ON DELETE CASCADE
 );
 
 CREATE TABLE Applications (
@@ -107,8 +112,8 @@ CREATE TABLE Applications (
     Uncom_Cert VARCHAR(255),
     Com_Cert VARCHAR(255),
     Purpose_Statement LONGTEXT,
-    FOREIGN KEY (Program_Num) REFERENCES Programs(Program_Num),
-    FOREIGN KEY (UIN) REFERENCES College_Student(UIN)
+    FOREIGN KEY (Program_Num) REFERENCES Programs(Program_Num) ON DELETE CASCADE,
+    FOREIGN KEY (UIN) REFERENCES College_Student(UIN) ON DELETE CASCADE
 );
 
 CREATE TABLE Document (
@@ -116,7 +121,7 @@ CREATE TABLE Document (
     App_Num INT,
     Link VARCHAR(255),
     Doc_Type VARCHAR(255),
-    FOREIGN KEY (App_Num) REFERENCES Applications(App_Num)
+    FOREIGN KEY (App_Num) REFERENCES Applications(App_Num) ON DELETE CASCADE
 );
 
 CREATE TABLE Event (
@@ -129,14 +134,49 @@ CREATE TABLE Event (
     End_Date DATE,
     End_Time TIME,
     Event_Type VARCHAR(255),
-    FOREIGN KEY (UIN) REFERENCES Users(UIN),
-    FOREIGN KEY (Program_Num) REFERENCES Programs(Program_Num)
+    FOREIGN KEY (UIN) REFERENCES Users(UIN) ON DELETE CASCADE,
+    FOREIGN KEY (Program_Num) REFERENCES Programs(Program_Num) ON DELETE CASCADE
 );
 
 CREATE TABLE Event_Tracking (
     ET_Num INT PRIMARY KEY AUTO_INCREMENT,
     Event_ID INT,
     UIN INT,
-    FOREIGN KEY (Event_ID) REFERENCES Event(Event_ID),
-    FOREIGN KEY (UIN) REFERENCES Users(UIN)
+    FOREIGN KEY (Event_ID) REFERENCES Event(Event_ID) ON DELETE CASCADE,
+    FOREIGN KEY (UIN) REFERENCES Users(UIN) ON DELETE CASCADE
 );
+
+-- Jake View1
+CREATE VIEW track_to_classes AS SELECT 
+        t.Program_Num, t.UIN,
+        ce.Class_ID,
+        c.Type
+    FROM
+        Track t
+    JOIN
+        Class_Enrollment ce ON t.UIN = ce.UIN
+    JOIN
+        Classes c ON ce.Class_ID = c.Class_ID;
+
+-- Jake View 2
+CREATE VIEW uin_to_loaction_taken AS SELECT 
+        ia.UIN,
+        i.Location
+    FROM
+        Intern_App ia
+    JOIN
+        Internship i ON ia.Intern_ID = i.Intern_ID
+    WHERE
+        ia.Status = 'Taken';
+
+-- Jake index 1
+CREATE INDEX easy_cert ON cert_enrollment (UIN, Training_Status);
+
+-- Mario View 1 (Document Upload and Management)
+CREATE VIEW doc_uploads_view AS
+SELECT d.Doc_Num, d.App_Num, d.Link, d.Doc_Type, a.UIN
+FROM Document d
+JOIN Applications a ON d.App_Num = a.app_num;
+
+-- Mario Index 1 (Document Upload and Management)
+CREATE INDEX idx_UIN ON applications (UIN);
