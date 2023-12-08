@@ -19,6 +19,7 @@
             Passwords = '$password'
         WHERE uin = $uin;";
 
+            // run sql statement
             if ($result = mysqli_query($conn, $sql)) {
                 header("Location: index.php");
                 exit();

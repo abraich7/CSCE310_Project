@@ -17,11 +17,10 @@
             $email = $_POST['email'];
             $discord_name = $_POST['discord_name'];
 
+            // makes a new college student entry for the user if they are switched to student type from admin type
             if ($user_type == "student") {
                 $sql_college_student_check = "SELECT * FROM college_student WHERE UIN = '$uin';";
                 $result_college_student_check = mysqli_query($conn, $sql_college_student_check);
-
-                //print_r(mysqli_fetch_assoc($result));
         
                 if (mysqli_num_rows($result_college_student_check) == 0) {
                     $sql_college_student = "INSERT INTO college_student (UIN) VALUES ($uin)";
@@ -31,6 +30,7 @@
 
             }
 
+            // set sql query for update
             $sql_user = "UPDATE users 
         SET First_Name = '$first_name', 
             Last_Name = '$last_name', 
@@ -40,7 +40,7 @@
             Discord_Name = '$discord_name'
         WHERE uin = $uin;";
 
-
+            // run sql query and redirect if successful
             if ($result2 = mysqli_query($conn, $sql_user)) {
                 header("Location: index.php");
                 exit();

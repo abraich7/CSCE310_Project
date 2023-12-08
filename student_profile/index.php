@@ -9,20 +9,23 @@
     session_start();
 
     if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'student') {
-        // Redirect to login page or display error message
-        header("Location: login.php"); // Redirect to login page
+        // redirect to login page
+        header("Location: login.php");
         exit();
     }
 
     $UIN = $_SESSION['uin'];
 
+    // sets sql statements
     $sql_college_student = "SELECT * FROM college_student WHERE UIN = $UIN;";
     $sql_user = "SELECT * FROM users WHERE UIN = $UIN;";
+
+    // executes sql statements
     $result_college_student = $conn->query($sql_college_student);
     $result_user = $conn->query($sql_user);
 
     if ($result_college_student->num_rows > 0) {
-        // Output data of each row
+        // output data of each row
         $row = $result_college_student->fetch_assoc();
         $row2 = $result_user->fetch_assoc();
     }   
