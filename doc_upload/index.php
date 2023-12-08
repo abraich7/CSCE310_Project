@@ -1,35 +1,30 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to display an uploaded file.
+ */
 session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['uin'])) {
     // Redirect to login page if not logged in
-    header("Location: ../login.php");
+    header("Location: ..");
     exit();
 }
 
 include_once '../includes/dbh.inc.php'; // Include the database connection file
 
-// Check for success parameter in the URL
+// Check for upload status parameter in the URL
 if (isset($_GET['upload_status'])) {
     echo "<p>" . $_GET['upload_status'] . "</p>";
 }
-
-// Fetch doc_num values for the fetched app_num values
-$docInfoTable = '<table border="1">
-                    <tr>
-                        <th>App Num</th>
-                        <th>Doc Num</th>
-                        <th>Document Name</th>
-                        <th>View Document</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>';
 
 // Fetch app_num values from the application table for the current user
 $uin = $_SESSION['uin'];
 $appNumQuery = "SELECT * FROM doc_uploads_view WHERE UIN = '$uin'";
 $appNumResult = mysqli_query($conn, $appNumQuery);
+$docInfoTable = "";
 
 if ($appNumResult && mysqli_num_rows($appNumResult) > 0) {
     while ($row = mysqli_fetch_assoc($appNumResult)) {
@@ -64,8 +59,6 @@ if ($appNumResult && mysqli_num_rows($appNumResult) > 0) {
             
     }
 }
-
-$docInfoTable .= '</table>';
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +74,16 @@ $docInfoTable .= '</table>';
     <a href="new.php">Upload New Document</a><br><br>
 
     <h2>Uploaded Documents</h2>
-    <?php echo $docInfoTable; ?>
-
+    <table border="1">
+        <tr>
+            <th>App Num</th>
+            <th>Doc Num</th>
+            <th>Document Name</th>
+            <th>View Document</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <?php echo $docInfoTable; ?>
+    </table>
 </body>
 </html>

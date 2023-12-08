@@ -1,4 +1,10 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to update an uploaded file using the
+ * parameters passed in from edit.php.
+ */
 session_start();
 
 include_once '../includes/dbh.inc.php'; // Include the database connection file
@@ -7,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Check if the user is logged in
     if (!isset($_SESSION['uin'])) {
         // Redirect to login page if not logged in
-        header("Location: ../login.php");
+        header("Location: ..");
         exit();
     }
 

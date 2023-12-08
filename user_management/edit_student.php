@@ -1,3 +1,6 @@
+<!-- Edit student page -->
+<!-- File Completed By: Jacob Parker -->
+
 <?php
     include_once '../includes/dbh.inc.php';
     include_once '../includes/navbar.php';
@@ -5,28 +8,36 @@
     // confirm user is a student
     session_start();
 
-    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'student') {
+    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
         // Redirect to login page or display error message
         header("Location: login.php"); // Redirect to login page
         exit();
     }
 
-    $UIN = $_SESSION['uin'];
+    if(isset($_GET['uin'])) {
+        $UIN = $_GET['uin'];
 
-    $sql_college_student = "SELECT * FROM college_student WHERE UIN = $UIN;";
-    $sql_user = "SELECT * FROM users WHERE UIN = $UIN;";
-    $result_college_student = $conn->query($sql_college_student);
-    $result_user = $conn->query($sql_user);
+        // construct sql statements
+        $sql_college_student = "SELECT * FROM college_student WHERE UIN = $UIN;";
+        $sql_user = "SELECT * FROM users WHERE UIN = $UIN;";
 
-    if ($result_college_student->num_rows > 0) {
-        // Output data of each row
-        $row = $result_college_student->fetch_assoc();
-        $row2 = $result_user->fetch_assoc();
-    }    
+        // run sql statements
+        $result_college_student = $conn->query($sql_college_student);
+        $result_user = $conn->query($sql_user);
+
+        if ($result_college_student->num_rows > 0) {
+            // get output data by row so we can use it in field below
+            $row = $result_college_student->fetch_assoc();
+            $row2 = $result_user->fetch_assoc();
+        }    
+    } else {
+        echo "Error";
+    }
 ?>
 
 <button onclick="window.location.href = 'index.php';">Back</button>
-<form action="update_profile.php" method="post">
+<form action="edit_student_function.php" method="post">
+    <input type="hidden" name="UIN" value="<?php echo $UIN; ?>">
     <table>
         <tr>
             <td><label for="first_name">First Name:</label></td>

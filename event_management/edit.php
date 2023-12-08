@@ -1,3 +1,21 @@
+<?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to display the form details for editing an event
+ * and passing the parameters to update.php
+ */
+session_start();
+
+// If not admin
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
+    header("Location: .."); // Redirect to login page
+    exit();
+}
+
+include_once '../includes/dbh.inc.php'; // Include the database connection file
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,16 +26,6 @@
     <h1>Edit Event</h1>
 
     <?php
-    session_start();
-
-    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
-        // Redirect to login page or display error message
-        header("Location: ../login.php"); // Redirect to login page
-        exit();
-    }
-
-    include_once '../includes/dbh.inc.php'; // Include the database connection file
-
     // Check for success parameter in the URL
     if (isset($_GET['update_status'])) {
         echo "<p>" . $_GET['update_status'] . "</p>";
@@ -25,26 +33,24 @@
 
     if (isset($_GET['event_id'])) {
         $event_id = $_GET['event_id'];
-
-        // Fetch event details based on the provided Event_ID
-        $sql = "SELECT Event.*, Programs.Name AS Program_Name FROM Event 
-                LEFT JOIN Programs ON Event.Program_Num = Programs.Program_Num 
-                WHERE Event.Event_ID = $event_id";
+    
+        // Fetch event details using the created view EventDetails based on the provided Event_ID
+        $sql = "SELECT * FROM EventDetails WHERE Event_ID = $event_id";
         $result = mysqli_query($conn, $sql);
-
+    
         if ($result && mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
     ?>
             <form action='update.php' method='post'>
                 <input type='hidden' name='event_id' value='<?php echo $row['Event_ID']; ?>'>
-
+    
                 <label for='program_name'>Program Name:</label>
                 <select id='program_name' name='program_name'>
                     <?php
                     $selected_program_name = $row['Program_Name'];
                     $sql_programs = "SELECT Name FROM Programs";
                     $result_programs = mysqli_query($conn, $sql_programs);
-
+    
                     if ($result_programs && mysqli_num_rows($result_programs) > 0) {
                         while ($program = mysqli_fetch_assoc($result_programs)) {
                             $selected = ($program['Name'] === $selected_program_name) ? 'selected' : '';
@@ -53,7 +59,7 @@
                     }
                     ?>
                 </select><br><br>
-
+    
                 <label for='start_date'>Start Date:</label>
                 <input type='date' id='start_date' name='start_date' value='<?php echo $row['Start_Date']; ?>'><br><br>
 

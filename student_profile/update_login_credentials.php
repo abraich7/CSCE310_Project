@@ -1,3 +1,6 @@
+<!-- Update login credentials function -->
+<!-- File Completed By: Jacob Parker -->
+
 <?php
     include_once '../includes/dbh.inc.php';
 
@@ -16,6 +19,7 @@
             Passwords = '$password'
         WHERE uin = $uin;";
 
+            // run sql statement
             if ($result = mysqli_query($conn, $sql)) {
                 header("Location: index.php");
                 exit();
