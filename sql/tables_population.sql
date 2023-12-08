@@ -91,10 +91,7 @@ VALUES (1, 1, 'Certification 1', 'Certification 2', 'Purpose statement for Appli
        (4, 4, 'Certification 4', 'Certification 2', 'Purpose statement for Application 2');
 
 -- Document Table
-INSERT INTO Document (App_Num, Link, Doc_Type)
-VALUES (1, 'https://link-to-document-1.com', 'Type A'),
-       (2, 'https://link-to-document-2.com', 'Type B'),
-       (3, 'https://link-to-document-3.com', 'Type C');
+-- This must be populated manually
 
 -- Event Table
 INSERT INTO Event (UIN, Program_Num, Start_Date, Start_Time, Location, End_Date, End_Time, Event_Type)
