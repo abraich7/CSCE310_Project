@@ -1,3 +1,6 @@
+<!-- View admin user page -->
+<!-- File Completed By: Jacob Parker -->
+
 <?php
     include_once '../includes/dbh.inc.php';
     include_once '../includes/navbar.php';
@@ -29,7 +32,7 @@
 ?>
 
 <button onclick="window.location.href = '../user_management/index.php';">Back</button>
-<h1>Student Profile</h1>
+<h1>Admin Profile</h1>
 <table>
     <tr>
         <td><b><label for="first_name">First Name:</label></b></td>

@@ -1,3 +1,6 @@
+<!-- Login form -->
+<!-- File Completed By: Jacob Parker -->
+
 <?php
     include_once '../includes/dbh.inc.php';
 

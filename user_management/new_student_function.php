@@ -1,4 +1,4 @@
-<!-- New admin function -->
+<!-- New User Creation Function -->
 <!-- File Completed By: Jacob Parker -->
 
 <?php
@@ -7,7 +7,7 @@
     session_start();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['new_admin'])) {
+        if (isset($_POST['new_student'])) {
             // set username and password from the submitted form
             $uin = $_POST['UIN'];
             $first_name = $_POST['First_Name'];
@@ -25,12 +25,10 @@
 
             if ($result = mysqli_query($conn, $sql)) {
                 // user successfully added
-                header("Location: index.php");
-                exit();
-
+                header("Location: new_college_student_creation.php?uin=" . urlencode($uin));
             } else {
                 // user failed to be added
-                echo "Sorry, failed to add admin";
+                echo "Sorry, failed to add user";
             }
         }
     }

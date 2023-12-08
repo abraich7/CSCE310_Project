@@ -1,3 +1,6 @@
+<!-- New User Creation Function -->
+<!-- File Completed By: Jacob Parker -->
+
 <?php
     include_once '../includes/dbh.inc.php';
 

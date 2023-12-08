@@ -1,3 +1,6 @@
+<!-- Deactivate user function -->
+<!-- File Completed By: Jacob Parker -->
+
 <?php
 session_start();
 

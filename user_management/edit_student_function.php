@@ -1,4 +1,4 @@
-<!-- Edit profile update function -->
+<!-- Edit student profile update function for admin page -->
 <!-- File Completed By: Jacob Parker -->
 
 <?php
@@ -9,7 +9,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['college_student_edit_profile'])) {
             // set username and password from the submitted form
-            $uin = $_SESSION["uin"];
+            $uin = $_POST['UIN'];
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
             $m_initial = $_POST['m_initial'];

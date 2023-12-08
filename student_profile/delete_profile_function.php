@@ -1,3 +1,6 @@
+<!-- Delete profile function -->
+<!-- File Completed By: Jacob Parker -->
+
 <?php
     include_once '../includes/dbh.inc.php';
     include_once '../includes/navbar.php';
