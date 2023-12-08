@@ -21,6 +21,7 @@
         <li><a href ="../application_management/application_manage.php">Application Information Management</a></li> <!-- Jake Student Functionality -->
         <li><a href="../doc_upload">Document Upload</a></li> <!-- Mario Student Functionality -->
         <li><a href ="../student_profile/index.php">Student Profile</a></li> <!-- Jacob Student Functionality -->
-    </ul>
+        <li><a href ="../program_progress_tracking_student/index_s.php">Track Your Progress</a></li> <!-- Anoop Student Functionality -->
+    </ul
 </body>
 </html>
