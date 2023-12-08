@@ -1,4 +1,4 @@
-<!-- View controller page -->
+<!-- Edit controller page -->
 <!-- File Completed By: Jacob Parker -->
 
 <?php
@@ -24,11 +24,11 @@
         if(mysqli_num_rows($result) > 0) {
             $row = $result->fetch_assoc();
             if($row['User_Type'] == 'student') {
-                $url = 'view_student.php?uin=' . $UIN;
+                $url = 'edit_student.php?uin=' . $UIN;
                 header("Location: $url");
                 exit();
             } else {
-                $url = 'view_admin.php?uin=' . $UIN;
+                $url = 'edit_admin.php?uin=' . $UIN;
                 header("Location: $url");
                 exit();
             }

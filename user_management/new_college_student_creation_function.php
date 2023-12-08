@@ -7,9 +7,9 @@
     session_start();
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['college_student_creation'])) {
+        if (isset($_POST['new_college_student_creation'])) {
             // set username and password from the submitted form
-            $uin = $_SESSION["uin"];
+            $uin = $_POST['UIN'];
             $gender = $_POST['gender'];
             $hispanic_latino = $_POST['hispanic_latino'];
             $race = $_POST['race'];
@@ -28,11 +28,11 @@
     
             // create SQL statement
             $sql = "INSERT INTO college_student (UIN, Gender, Hispanic_Latino, Race, US_Citizen, First_Generation, DoB, GPA, Major, Minor_1, Minor_2, Expected_Graduation, School, Classification, Phone, Student_Type)
-            VALUES ('$uin', '$gender', '$hispanic_latino', '$race', '$us_citizen', '$first_generation', '$dob', '$gpa', '$major', '$minor1', '$minor2', '$expected_graduation', '$school', '$classification', '$phone', '$student_type')";
+            VALUES ($uin, '$gender', '$hispanic_latino', '$race', '$us_citizen', '$first_generation', '$dob', '$gpa', '$major', '$minor1', '$minor2', '$expected_graduation', '$school', '$classification', '$phone', '$student_type')";
 
             if ($result = mysqli_query($conn, $sql)) {
                 // user successfully added
-                header("Location: student_links.php");
+                header("Location: index.php");
                 exit();
             } else {
                 // user failed to be added

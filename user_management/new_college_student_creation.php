@@ -1,7 +1,12 @@
 <!-- New Student Creation Function -->
 <!-- File Completed By: Jacob Parker -->
+<?php
+    $uin = $_GET['uin'];
+?>
 
-<form action="college_student_creation_function.php" method="post">
+<form action="new_college_student_creation_function.php" method="post">
+    <input type="hidden" name="UIN" value="<?php echo $uin; ?>">
+
     <!-- Gender (VARCHAR) -->
     <label for="gender">Gender:</label>
     <input type="text" id="gender" name="gender" required><br><br>
@@ -72,5 +77,5 @@
     <input type="text" id="student_type" name="student_type" required><br><br>
 
     <!-- Submit Button -->
-    <input type="submit" name="college_student_creation" value="Update Information">
+    <input type="submit" name="new_college_student_creation" value="Update Information">
 </form>

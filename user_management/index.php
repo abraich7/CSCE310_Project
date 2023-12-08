@@ -1,3 +1,7 @@
+<!-- Admin User Authentication and Roles Index Page -->
+<!-- File Completed By: Jacob Parker -->
+
+
 <?php
 session_start();
 
@@ -18,7 +22,7 @@ $result = mysqli_query($conn, $sql);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Event Management</title>
+    <title>User Management</title>
 </head>
 <body>
     <?php include_once '../includes/navbar.php'; ?>
@@ -27,6 +31,7 @@ $result = mysqli_query($conn, $sql);
 
     <!-- Link to create a new event -->
     <a href="new_admin.php">Create New Admin</a><br><br>
+    <a href="new_student.php">Create New Student</a><br><br>
 
     <!-- Display Events -->
     <h2>Users</h2>
@@ -52,7 +57,7 @@ $result = mysqli_query($conn, $sql);
                 echo "<td>" . $row['User_Type'] . "</td>";
                 echo "<td>" . $row['Account_Active'] . "</td>";
                 echo "<td><a href='view_controller.php?uin=" . $row['UIN'] . "'>View</a></td>";
-                echo "<td><a href='edit_user.php?uin=" . $row['UIN'] . "'>Edit</a></td>";
+                echo "<td><a href='edit_user_controller.php?uin=" . $row['UIN'] . "'>Edit</a></td>";
                 echo "<td>";
                 echo "<form action='deactivate_user.php' method='post'>";
                 echo "<input type='hidden' name='deactivate_user' value='" . $row['UIN'] . "'>";
