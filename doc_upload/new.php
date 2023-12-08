@@ -1,4 +1,9 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to upload a file.
+ */
 session_start();
 
 $upload_status = '';

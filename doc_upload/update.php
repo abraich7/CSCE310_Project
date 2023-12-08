@@ -1,4 +1,10 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to update an uploaded file using the
+ * parameters passed in from edit.php.
+ */
 session_start();
 
 include_once '../includes/dbh.inc.php'; // Include the database connection file

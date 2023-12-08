@@ -1,4 +1,9 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to add an attendee to an event.
+ */
 session_start();
 
 // If not admin

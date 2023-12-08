@@ -1,4 +1,10 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to display the form details for editing an event
+ * and passing the parameters to update.php
+ */
 session_start();
 
 // If not admin

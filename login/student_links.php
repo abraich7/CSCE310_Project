@@ -5,11 +5,7 @@
     // confirm user is a student
     session_start();
 
-    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'student') {
-        // Redirect to login page or display error message
-        header("Location: login.php"); // Redirect to login page
-        exit();
-    }
+
 ?>
 
 <!DOCTYPE html>
