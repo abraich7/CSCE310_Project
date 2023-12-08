@@ -1,10 +1,15 @@
-<!-- New User Creation Form -->
+<!-- New admin page -->
 <!-- File Completed By: Jacob Parker -->
 
 <?php
     include_once '../includes/dbh.inc.php';
+    include_once '../includes/navbar.php';
 
-    session_start();
+    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
+        // Redirect to login page or display error message
+        header("Location: login.php"); // Redirect to login page
+        exit();
+    }   
 ?>
 
 <!DOCTYPE html>
@@ -15,15 +20,13 @@
 <body>
 
 <h2>Create a New User</h2>
-<form action="new_user_login_function.php" method="post">
+<form action="new_admin_function.php" method="post">
     <label for="uin">UIN:</label>
     <input type="text" id="UIN" name="UIN" required><br><br>
 
     <label for="user_type">User Type:</label>
     <select id="User_Type" name="User_Type" required>
         <option value="admin">admin</option>
-        <option value="student">student</option>
-        <option value="k-12">k-12</option>
     </select><br><br>
 
 
@@ -48,8 +51,10 @@
     <label for="discord_name">Discord Name:</label>
     <input type="text" id="Discord_Name" name="Discord_Name"><br><br>
 
-    <input type="submit" name="new_user_login" value="Create User">
+    <input type="submit" name="new_admin" value="Create Admin">
 </form>
+<button onclick="window.location.href = 'index.php';">Cancel</button>
+
 
 </body>
 </html>

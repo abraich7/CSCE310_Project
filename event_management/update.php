@@ -1,9 +1,15 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to update an event using the parameters
+ * passed to it from edit.php.
+ */
 session_start();
 
+// If not admin
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
-    // Redirect to login page or display error message
-    header("Location: ../login.php"); // Redirect to login page
+    header("Location: .."); // Redirect to login page
     exit();
 }
 

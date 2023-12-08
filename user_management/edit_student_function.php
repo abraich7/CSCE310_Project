@@ -1,4 +1,4 @@
-<!-- Edit profile update function -->
+<!-- Edit student profile update function for admin page -->
 <!-- File Completed By: Jacob Parker -->
 
 <?php
@@ -8,9 +8,8 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['college_student_edit_profile'])) {
-
-            // set fields from submitted form
-            $uin = $_SESSION["uin"];
+            // set fields from form
+            $uin = $_POST['UIN'];
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
             $m_initial = $_POST['m_initial'];
@@ -34,7 +33,7 @@
             $phone = $_POST['phone'];
             $student_type = $_POST['student_type'];
     
-            // create SQL statements
+            // create SQL statement 1
             $sql = "UPDATE college_student 
         SET Gender = '$gender', 
             Hispanic_Latino = '$hispanic_latino', 
@@ -53,6 +52,7 @@
             Student_Type = '$student_type'
         WHERE uin = $uin;";
 
+            // create SQL statement 2
             $sql_user = "UPDATE users 
         SET First_Name = '$first_name', 
             Last_Name = '$last_name', 
@@ -62,7 +62,7 @@
             Discord_Name = '$discord_name'
         WHERE uin = $uin;";
 
-            // execute sql statements
+            // run both sql statements then redirect to main page if successful
             if ($result = mysqli_query($conn, $sql)) {
                 if ($result2 = mysqli_query($conn, $sql_user)) {
                     header("Location: index.php");
@@ -73,7 +73,7 @@
                 
             } else {
                 // user failed to be added
-                echo "Sorry, failed to update profile";
+                echo "Sorry, failed to add user";
             }
         }
     }

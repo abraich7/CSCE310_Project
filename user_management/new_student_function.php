@@ -3,11 +3,16 @@
 
 <?php
     include_once '../includes/dbh.inc.php';
+    include_once '../includes/navbar.php';
 
-    session_start();
+    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
+        // Redirect to login page or display error message
+        header("Location: login.php"); // Redirect to login page
+        exit();
+    }  
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['new_user_login'])) {
+        if (isset($_POST['new_student'])) {
             // set username and password from the submitted form
             $uin = $_POST['UIN'];
             $first_name = $_POST['First_Name'];
@@ -25,19 +30,7 @@
 
             if ($result = mysqli_query($conn, $sql)) {
                 // user successfully added
-                $_SESSION["uin"] = $uin;
-                $_SESSION["user_type"] = $user_type;
-
-                if ($_SESSION["user_type"] === 'student') {
-                    header("Location: college_student_creation.php");
-                    exit();
-                } elseif ($_SESSION["user_type"] === 'admin') {
-                    header("Location: admin_links.php");
-                    exit();
-                }elseif ($_SESSION["user_type"] === 'k-12') {
-                    header("Location: k12_links.php");
-                    exit();
-                }
+                header("Location: new_college_student_creation.php?uin=" . urlencode($uin));
             } else {
                 // user failed to be added
                 echo "Sorry, failed to add user";

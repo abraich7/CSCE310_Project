@@ -1,7 +1,21 @@
 <!-- New Student Creation Function -->
 <!-- File Completed By: Jacob Parker -->
+<?php
+    include_once '../includes/dbh.inc.php';
+    include_once '../includes/navbar.php';
 
-<form action="college_student_creation_function.php" method="post">
+    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
+        // Redirect to login page or display error message
+        header("Location: login.php"); // Redirect to login page
+        exit();
+    }  
+    
+    $uin = $_GET['uin'];
+?>
+
+<form action="new_college_student_creation_function.php" method="post">
+    <input type="hidden" name="UIN" value="<?php echo $uin; ?>">
+
     <!-- Gender (VARCHAR) -->
     <label for="gender">Gender:</label>
     <input type="text" id="gender" name="gender" required><br><br>
@@ -72,5 +86,5 @@
     <input type="text" id="student_type" name="student_type" required><br><br>
 
     <!-- Submit Button -->
-    <input type="submit" name="college_student_creation" value="Update Information">
+    <input type="submit" name="new_college_student_creation" value="Update Information">
 </form>

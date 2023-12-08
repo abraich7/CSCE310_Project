@@ -1,5 +1,6 @@
-// Admin Program Landing Page
-// File Completed By: Jake Rounds
+<!-- Admin Program Landing Page-->
+<!-- File Completed By: Jake Rounds-->
+
 
 <?php
     session_start();
@@ -9,6 +10,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    <?php include_once '../includes/navbar.php'; ?>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
