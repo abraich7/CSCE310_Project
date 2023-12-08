@@ -191,5 +191,11 @@ FROM Event
 LEFT JOIN Programs ON Event.Program_Num = Programs.Program_Num
 LEFT JOIN Users ON Event.UIN = Users.UIN;
 
+-- Mario View 3 (Event Management)
+CREATE VIEW EventTrackingUsers AS
+SELECT ET.Event_ID, ET.UIN AS UIN, U.First_Name, U.Last_Name, U.Email
+FROM Event_Tracking ET
+JOIN Users U ON ET.UIN = U.UIN;
+
 -- Mario Index 2 (Event Management)
 CREATE INDEX idx_programs_name ON Programs (Name);
