@@ -1,5 +1,6 @@
-// Admin Program Delete Functionality
-// File Completed By: Jake Rounds
+<!-- Admin Program Delete Functionality-->
+<!-- File Completed By: Jake Rounds-->
+
 
 <?php
     session_start();

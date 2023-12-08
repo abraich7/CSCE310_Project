@@ -222,3 +222,4 @@ FROM Users U;
 
 -- Jacob Index 2
 CREATE INDEX idx_college_students_uin ON College_Student(UIN);
+
