@@ -1,4 +1,9 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to delete an uploaded file.
+ */
 session_start();
 
 // Check if the user is logged in

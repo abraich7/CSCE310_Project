@@ -1,4 +1,11 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to display an edit form to modify an uploaded file's
+ * application number or select a replacement file. It will submit the form and
+ * pass it to update.php.
+ */
 session_start();
 
 // Check if the user is logged in

@@ -1,4 +1,9 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to remove an attendee from an event.
+ */
 session_start();
 
 // If not admin

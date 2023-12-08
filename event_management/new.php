@@ -1,4 +1,9 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to create an event.
+ */
 session_start(); // Starting the session
 
 // If not admin

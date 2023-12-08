@@ -1,4 +1,10 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to display all events and have links
+ * to the CRUD functionality for each event.
+ */
 session_start();
 
 // If not admin
