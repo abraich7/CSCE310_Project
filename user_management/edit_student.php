@@ -17,13 +17,16 @@
     if(isset($_GET['uin'])) {
         $UIN = $_GET['uin'];
 
+        // construct sql statements
         $sql_college_student = "SELECT * FROM college_student WHERE UIN = $UIN;";
         $sql_user = "SELECT * FROM users WHERE UIN = $UIN;";
+
+        // run sql statements
         $result_college_student = $conn->query($sql_college_student);
         $result_user = $conn->query($sql_user);
 
         if ($result_college_student->num_rows > 0) {
-            // Output data of each row
+            // get output data by row so we can use it in field below
             $row = $result_college_student->fetch_assoc();
             $row2 = $result_user->fetch_assoc();
         }    

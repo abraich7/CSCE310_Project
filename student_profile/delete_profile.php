@@ -8,6 +8,7 @@
     // confirm user is a student
     session_start();
 
+    // redirects if not a student
     if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'student') {
         header("Location: login.php");
         exit();

@@ -16,11 +16,14 @@
 
     $UIN = $_SESSION['uin'];
 
+    // set sql query
     $sql = "SELECT * FROM users WHERE UIN = $UIN;";
+
+    // execute sql query
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        // Output data of each row
+        // output data of each row
         $row = $result->fetch_assoc();
     }    
 ?>

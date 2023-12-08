@@ -8,7 +8,8 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['college_student_edit_profile'])) {
-            // set username and password from the submitted form
+
+            // set fields from submitted form
             $uin = $_SESSION["uin"];
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
@@ -33,7 +34,7 @@
             $phone = $_POST['phone'];
             $student_type = $_POST['student_type'];
     
-            // create SQL statement
+            // create SQL statements
             $sql = "UPDATE college_student 
         SET Gender = '$gender', 
             Hispanic_Latino = '$hispanic_latino', 
@@ -61,6 +62,7 @@
             Discord_Name = '$discord_name'
         WHERE uin = $uin;";
 
+            // execute sql statements
             if ($result = mysqli_query($conn, $sql)) {
                 if ($result2 = mysqli_query($conn, $sql_user)) {
                     header("Location: index.php");
@@ -71,7 +73,7 @@
                 
             } else {
                 // user failed to be added
-                echo "Sorry, failed to add user";
+                echo "Sorry, failed to update profile";
             }
         }
     }

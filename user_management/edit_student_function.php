@@ -8,7 +8,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['college_student_edit_profile'])) {
-            // set username and password from the submitted form
+            // set fields from form
             $uin = $_POST['UIN'];
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
@@ -33,7 +33,7 @@
             $phone = $_POST['phone'];
             $student_type = $_POST['student_type'];
     
-            // create SQL statement
+            // create SQL statement 1
             $sql = "UPDATE college_student 
         SET Gender = '$gender', 
             Hispanic_Latino = '$hispanic_latino', 
@@ -52,6 +52,7 @@
             Student_Type = '$student_type'
         WHERE uin = $uin;";
 
+            // create SQL statement 2
             $sql_user = "UPDATE users 
         SET First_Name = '$first_name', 
             Last_Name = '$last_name', 
@@ -61,6 +62,7 @@
             Discord_Name = '$discord_name'
         WHERE uin = $uin;";
 
+            // run both sql statements then redirect to main page if successful
             if ($result = mysqli_query($conn, $sql)) {
                 if ($result2 = mysqli_query($conn, $sql_user)) {
                     header("Location: index.php");
