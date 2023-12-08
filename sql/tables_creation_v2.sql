@@ -199,3 +199,26 @@ JOIN Users U ON ET.UIN = U.UIN;
 
 -- Mario Index 2 (Event Management)
 CREATE INDEX idx_programs_name ON Programs (Name);
+
+-- Jacob View 1 
+CREATE VIEW users_and_college_students AS
+SELECT U.UIN, U.First_Name, U.M_Initial, U.Last_Name, U.Username, U.Passwords,
+       U.User_Type, U.Email, U.Discord_Name, U.Account_Active,
+       CS.Gender, CS.Hispanic_Latino, CS.Race, CS.US_Citizen,
+       CS.First_Generation, CS.DoB, CS.GPA, CS.Major, CS.Minor_1,
+       CS.Minor_2, CS.Expected_Graduation, CS.School, CS.Classification,
+       CS.Phone AS Student_Phone, CS.Student_Type
+FROM Users U
+LEFT JOIN College_Student CS ON U.UIN = CS.UIN;
+
+
+-- Jacob Index 1
+CREATE INDEX idx_users_uin ON Users(UIN);
+
+-- Jacob View 2
+CREATE VIEW users_index_display AS
+SELECT U.UIN, U.First_Name, U.Last_Name, U.User_Type, U.Account_Active
+FROM Users U;
+
+-- Jacob Index 2
+CREATE INDEX idx_college_students_uin ON College_Student(UIN);

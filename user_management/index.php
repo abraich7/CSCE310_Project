@@ -11,9 +11,8 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
     exit();
 }
 
-include_once '../includes/dbh.inc.php'; // Include the database connection file
+include_once '../includes/dbh.inc.php';
 
-// Fetch events with associated program names and creator's information
 $sql = "SELECT * FROM users";
 $result = mysqli_query($conn, $sql);
 
@@ -29,11 +28,9 @@ $result = mysqli_query($conn, $sql);
     <button onclick="window.location.href = '../login/admin_links.php';">Back</button>
     <h1>User Management System</h1>
 
-    <!-- Link to create a new event -->
     <a href="new_admin.php">Create New Admin</a><br><br>
     <a href="new_student.php">Create New Student</a><br><br>
 
-    <!-- Display Events -->
     <h2>Users</h2>
     <table border="1">
         <tr>
@@ -46,10 +43,8 @@ $result = mysqli_query($conn, $sql);
             <th>Deactivate Account</th>
             <th>Delete Account</th>
         </tr>
-        <!-- PHP code to fetch and display events with creator's information -->
         <?php
         if ($result) {
-            // Display fetched events in table rows with links to show details, edit event, and delete event
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
                 echo "<td>" . $row['First_Name'] . "</td>";
@@ -73,10 +68,9 @@ $result = mysqli_query($conn, $sql);
                 echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='14'>No events found.</td></tr>";
+            echo "<tr><td colspan='14'>No users found.</td></tr>";
         }
 
-        // Close the database connection
         mysqli_close($conn);
         ?>
     </table>
