@@ -1,4 +1,9 @@
 
+
+<!-- Admin Program Progress Functionality: Landing Page
+File Completed By: Anoop Braich -->
+
+
 <?php
     # linking to database
     include_once '../includes/dbh.inc.php';
@@ -25,9 +30,11 @@
         <br>
         <button onclick="window.location.href = 'select_progress/progress_select.php';"> Access Progress Information </button><br> <!-- Select -->
         <br>
-        <button onclick="window.location.href = 'delete_progress/progress_delete.php';"> Remove a Report </button><br> <!-- Delete -->
+        <button onclick="window.location.href = 'delete_progress/progress_delete.php';"> Remove a Record </button><br> <!-- Delete -->
         <br>
         <br>
+
+        <button onclick="window.location.href = '../login/admin_links.php';"> Back </button> <!-- back to insert page -->
 
 
 
