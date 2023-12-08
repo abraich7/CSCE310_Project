@@ -10,7 +10,8 @@ CREATE TABLE Users (
     Passwords VARCHAR(255),
     User_Type VARCHAR(255),
     Email VARCHAR(255),
-    Discord_Name VARCHAR(255)
+    Discord_Name VARCHAR(255),
+    Account_Active BOOLEAN
 );
 
 CREATE TABLE Programs (
@@ -56,7 +57,7 @@ CREATE TABLE College_Student (
     Expected_Graduation SMALLINT,
     School VARCHAR(255),
     Classification VARCHAR(255),
-    Phone INT,
+    Phone VARCHAR(255),
     Student_Type VARCHAR(255),
     FOREIGN KEY (UIN) REFERENCES Users(UIN) ON DELETE CASCADE
 );
@@ -170,3 +171,55 @@ CREATE VIEW uin_to_loaction_taken AS SELECT
 
 -- Jake index 1
 CREATE INDEX easy_cert ON cert_enrollment (UIN, Training_Status);
+
+-- Mario View 1 (Document Upload and Management)
+CREATE VIEW doc_uploads_view AS
+SELECT d.Doc_Num, d.App_Num, d.Link, d.Doc_Type, a.UIN
+FROM Document d
+JOIN Applications a ON d.App_Num = a.app_num;
+
+-- Mario Index 1 (Document Upload and Management)
+CREATE INDEX idx_UIN ON applications (UIN);
+
+-- Mario View 2 (Event Management)
+CREATE VIEW EventDetails AS
+SELECT Event.Event_ID, Programs.Name AS Program_Name, 
+       Event.Start_Date, Event.Start_Time, Event.Location, 
+       Event.End_Date, Event.End_Time, Event.Event_Type,
+       CONCAT(Users.First_Name, ' ', Users.Last_Name, ' (', Users.UIN, ')') AS Creator_Info
+FROM Event 
+LEFT JOIN Programs ON Event.Program_Num = Programs.Program_Num
+LEFT JOIN Users ON Event.UIN = Users.UIN;
+
+-- Mario View 3 (Event Management)
+CREATE VIEW EventTrackingUsers AS
+SELECT ET.Event_ID, ET.UIN AS UIN, U.First_Name, U.Last_Name, U.Email
+FROM Event_Tracking ET
+JOIN Users U ON ET.UIN = U.UIN;
+
+-- Mario Index 2 (Event Management)
+CREATE INDEX idx_programs_name ON Programs (Name);
+
+-- Jacob View 1 
+CREATE VIEW users_and_college_students AS
+SELECT U.UIN, U.First_Name, U.M_Initial, U.Last_Name, U.Username, U.Passwords,
+       U.User_Type, U.Email, U.Discord_Name, U.Account_Active,
+       CS.Gender, CS.Hispanic_Latino, CS.Race, CS.US_Citizen,
+       CS.First_Generation, CS.DoB, CS.GPA, CS.Major, CS.Minor_1,
+       CS.Minor_2, CS.Expected_Graduation, CS.School, CS.Classification,
+       CS.Phone AS Student_Phone, CS.Student_Type
+FROM Users U
+LEFT JOIN College_Student CS ON U.UIN = CS.UIN;
+
+
+-- Jacob Index 1
+CREATE INDEX idx_users_uin ON Users(UIN);
+
+-- Jacob View 2
+CREATE VIEW users_index_display AS
+SELECT U.UIN, U.First_Name, U.Last_Name, U.User_Type, U.Account_Active
+FROM Users U;
+
+-- Jacob Index 2
+CREATE INDEX idx_college_students_uin ON College_Student(UIN);
+

@@ -1,9 +1,14 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to remove an attendee from an event.
+ */
 session_start();
 
+// If not admin
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
-    // Redirect to login page or display error message
-    header("Location: ../login.php"); // Redirect to login page
+    header("Location: .."); // Redirect to login page
     exit();
 }
 
@@ -62,7 +67,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="attendee_uin">Attendee UIN:</label>
         <input type="text" id="attendee_uin" name="attendee_uin"><br><br>
 
-        <!-- Store the event ID as a hidden input field -->
         <?php
         echo "<input type='hidden' name='event_id' value='$event_id'>";
         ?>

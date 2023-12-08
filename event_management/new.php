@@ -1,14 +1,21 @@
 <?php
+/**
+ * File Completed By: Mario Morelos
+ * 
+ * This file's purpose is to create an event.
+ */
 session_start(); // Starting the session
 
+// If not admin
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
-    // Redirect to login page or display error message
-    header("Location: ../login.php"); // Redirect to login page
+    header("Location: .."); // Redirect to login page
     exit();
 }
 
 // Include the database connection file
 include_once '../includes/dbh.inc.php';
+
+$create_status = '';
 
 // Fetch program names from the Programs table
 $sql = "SELECT Program_Num, Name FROM Programs";
@@ -26,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result_program && mysqli_num_rows($result_program) > 0) {
         $row_program = mysqli_fetch_assoc($result_program);
         $program_num = $row_program['Program_Num']; // Get the program number
-        // Retrieve other form data
         $start_date = $_POST['start_date'];
         $start_time = $_POST['start_time'];
         $location = $_POST['location'];
@@ -35,22 +41,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $event_type = $_POST['event_type'];
         $uin = $_SESSION["uin"]; // Get the user's UIN from the session
 
-        // Perform validation and sanitization as needed
-
         // Insert new event into the database
         $sql_insert = "INSERT INTO Event (Program_Num, Start_Date, Start_Time, Location, End_Date, End_Time, Event_Type, UIN) 
                 VALUES ('$program_num', '$start_date', '$start_time', '$location', '$end_date', '$end_time', '$event_type', '$uin')";
 
         if (mysqli_query($conn, $sql_insert)) {
-            // Event created successfully, redirect to index or show page
-            header("Location: index.php");
-            exit();
+            $create_status = "Event created successfully";
         } else {
-            echo "Error: " . $sql_insert . "<br>" . mysqli_error($conn);
+            $create_status = "Error: " . $sql_insert . "<br>" . mysqli_error($conn);
         }
     } else {
-        echo "Error: Could not fetch Program_Num from the selected program name.";
+        $create_status = "Error: Could not fetch Program_Num from the selected program name.";
     }
+    header("Location: index.php?create_status=$create_status");
+    exit();
 }
 
 // Close the database connection

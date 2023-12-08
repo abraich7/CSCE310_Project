@@ -5,11 +5,7 @@
     // confirm user is a student
     session_start();
 
-    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'student') {
-        // Redirect to login page or display error message
-        header("Location: login.php"); // Redirect to login page
-        exit();
-    }
+
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +19,8 @@
     <h1>Student Links</h1>
     <ul>
         <li><a href ="../application_management/application_manage.php">Application Information Management</a></li> <!-- Jake Student Functionality -->
-    </ul
+        <li><a href="../doc_upload">Document Upload</a></li> <!-- Mario Student Functionality -->
+        <li><a href ="../student_profile/index.php">Student Profile</a></li> <!-- Jacob Student Functionality -->
+    </ul>
 </body>
 </html>

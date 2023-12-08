@@ -1,3 +1,6 @@
+<!-- New User Creation Function -->
+<!-- File Completed By: Jacob Parker -->
+
 <?php
     include_once '../includes/dbh.inc.php';
 
@@ -15,9 +18,10 @@
             $user_type = $_POST['User_Type'];
             $email = $_POST['Email'];
             $discord_name = $_POST['Discord_Name'];
+            $account_active = True;
     
             // create SQL statement
-            $sql = "INSERT INTO users(UIN,First_Name,M_Initial,Last_Name,Username,Passwords,User_Type,Email,Discord_Name) VALUES ($uin, '$first_name', '$m_initial', '$last_name', '$username', '$password', '$user_type', '$email', '$discord_name')";
+            $sql = "INSERT INTO users(UIN,First_Name,M_Initial,Last_Name,Username,Passwords,User_Type,Email,Discord_Name,Account_Active) VALUES ($uin, '$first_name', '$m_initial', '$last_name', '$username', '$password', '$user_type', '$email', '$discord_name', $account_active)";
 
             if ($result = mysqli_query($conn, $sql)) {
                 // user successfully added
@@ -25,7 +29,7 @@
                 $_SESSION["user_type"] = $user_type;
 
                 if ($_SESSION["user_type"] === 'student') {
-                    header("Location: student_links.php");
+                    header("Location: college_student_creation.php");
                     exit();
                 } elseif ($_SESSION["user_type"] === 'admin') {
                     header("Location: admin_links.php");

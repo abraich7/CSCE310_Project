@@ -1,6 +1,7 @@
 <!-- Student Application Landing Page-->
 <!-- File Completed By: Jake Rounds-->
 
+
 <?php
     session_start();
     include_once "../includes/dbh.inc.php";

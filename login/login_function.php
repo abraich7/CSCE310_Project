@@ -1,3 +1,6 @@
+<!-- Login function -->
+<!-- File Completed By: Jacob Parker -->
+
 <?php
     include_once '../includes/dbh.inc.php';
 
@@ -23,6 +26,8 @@
                 $result_user_type = mysqli_query($conn, $sql);
 
                 $row = mysqli_fetch_assoc($result_user_type);
+
+
 
                 $_SESSION["uin"] = $row['UIN'];
                 $_SESSION["user_type"] = $row['User_Type'];

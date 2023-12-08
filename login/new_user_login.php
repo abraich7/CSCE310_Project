@@ -1,3 +1,6 @@
+<!-- New User Creation Form -->
+<!-- File Completed By: Jacob Parker -->
+
 <?php
     include_once '../includes/dbh.inc.php';
 
@@ -17,7 +20,12 @@
     <input type="text" id="UIN" name="UIN" required><br><br>
 
     <label for="user_type">User Type:</label>
-    <input type="text" id="User_Type" name="User_Type"><br><br>
+    <select id="User_Type" name="User_Type" required>
+        <option value="admin">admin</option>
+        <option value="student">student</option>
+        <option value="k-12">k-12</option>
+    </select><br><br>
+
 
     <label for="first_name">First Name:</label>
     <input type="text" id="First_Name" name="First_Name" required><br><br>
