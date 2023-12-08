@@ -1,5 +1,5 @@
-// Student Application Update Functionality
-// File Completed By: Jake Rounds
+<!-- Student Application Update Functionality-->
+<!-- File Completed By: Jake Rounds-->
 
 <?php
     session_start();
