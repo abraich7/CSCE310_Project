@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["document"])) {
             $upload_status = "The file " . htmlspecialchars($file_name) . " has been uploaded.";
 
             // Update link in DB document table
-            $new_link = $new_directory . "/" . $file_name;
+            $new_link = $new_directory . $file_name;
             $sql_replace_link = "UPDATE Document SET Link = '$new_link' WHERE Doc_Num = $doc_num";
             $stmt_replace_link = mysqli_prepare($conn, $sql_replace_link);
             mysqli_stmt_execute($stmt_replace_link);
