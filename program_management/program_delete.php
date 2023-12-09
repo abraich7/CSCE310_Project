@@ -19,7 +19,7 @@
         <div> <!-- Admin: delete -->
             <h1> Remove an existing program </h1>
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-            <label for="columns"> Please select a program to be deleted: </label>   // prgram drop down
+            <label for="columns"> Please select a program to be deleted: </label>   <!-- prgram drop down -->
                 <select name="column" id="columns">
                     <?php
                     // Get column names from the table
@@ -35,7 +35,7 @@
                 </select>
                 <br>
 
-                <label for="delete_type"> Do you want to Archive or Fully Delete this Program?: </label>    // archive or delete functionality
+                <label for="delete_type"> Do you want to Archive or Fully Delete this Program?: </label>    <!--archive or delete functionality -->
                 <select name="delete_type" id="delete_type">
                     <?php
                     $query = "SELECT Name FROM Programs";

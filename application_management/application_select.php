@@ -70,8 +70,12 @@
                     $row = $result->fetch_assoc();
 
                     // get column info from result
-                    $col8 = $row['Status'];
-                
+                    if(($result && mysqli_num_rows($result)) > 0){
+                        $col8 = $row['Status'];
+                    }else{
+                        $col8 = 'In Review';
+                    }
+
                     // print column info
                     echo "<br>";
                     echo "Application Information on File:<br>";
