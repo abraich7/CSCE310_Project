@@ -139,7 +139,11 @@
                     $sql = "SELECT Race FROM Track LEFT JOIN College_Student ON Track.UIN = College_Student.UIN WHERE Track.Program_Num = '$Pnum'";
                     $result = $conn->query($sql);
                     $total_people = $result->num_rows;
-                    echo (1-$num_white_people/$total_people)*100, "%";
+                    if($total_people == 0){
+                        echo "No students";
+                    }else {
+                        echo (1-$num_white_people/$total_people)*100, "%";
+                    }
                     echo "<br><br>";
 
                     // the number of K-12 students enrolled in summer camps; each program has summer camps. The students are applying to be a part of the summer camps.

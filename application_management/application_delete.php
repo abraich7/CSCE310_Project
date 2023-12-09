@@ -20,7 +20,7 @@
             <h1> Delete an Application </h1>
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
                 <!-- text feilds to build the query -->
-                <label for="app_id"> Select the Application you would like to delete: </label>  // program select drop down
+                <label for="app_id"> Select the Application you would like to delete: </label>  <!-- program select drop down -->
                 <select name="app_ids" id="app_id">
                     <?php
                     // get column names from the table
