@@ -4,14 +4,7 @@
     include_once '../includes/dbh.inc.php';
     include_once '../includes/navbar.php';
 
-    // confirm user is a student
-    session_start();
 
-    if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
-        // Redirect to login page or display error message
-        header("Location: login.php"); // Redirect to login page
-        exit();
-    }  
     
     $uin = $_GET['uin'];
 ?>
