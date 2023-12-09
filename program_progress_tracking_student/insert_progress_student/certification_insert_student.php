@@ -1,6 +1,6 @@
 
 
-<!-- Admin Program Progress Functionality: Insert Certification
+<!-- Student Program Progress Functionality: Insert Certification
 File Completed By: Anoop Braich -->
 
 
@@ -16,11 +16,11 @@ File Completed By: Anoop Braich -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Program Progress: Insert Certification</title>
+    <title>Student Program Progress: Insert Certification</title>
 </head>
     <body>
-        <div> <!-- Admin: insert -->
-            <h1> Record Certification Progress </h1>
+        <div> <!-- Student: insert -->
+            <h1> Record Your Certification Progress </h1>
             <form action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
 
                 <!--Get user input -->
@@ -116,7 +116,7 @@ File Completed By: Anoop Braich -->
 
             <br>
             <br>
-            <button onclick="window.location.href = 'progress_insert.php';"> Back </button> <!-- back to insert page -->
+            <button onclick="window.location.href = 'progress_insert_student.php';"> Back </button> <!-- back to insert page -->
 
 
         </div>

@@ -1,10 +1,16 @@
 
+
+<!-- Admin Program Progress Functionality: Insert Landing Page
+File Completed By: Anoop Braich -->
+
+
 <?php
     # linking to database
     include_once '../../includes/dbh.inc.php';
-    #session_start();
+    session_start();
 
 ?>
+
 
 
 <!DOCTYPE html>

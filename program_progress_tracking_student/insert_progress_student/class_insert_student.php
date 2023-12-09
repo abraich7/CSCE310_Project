@@ -1,6 +1,6 @@
 
 
-<!-- Admin Program Progress Functionality: Insert Internship
+<!-- Student Program Progress Functionality: Insert Class
 File Completed By: Anoop Braich -->
 
 
@@ -16,16 +16,16 @@ File Completed By: Anoop Braich -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Program Progress: Insert Internship </title>
+    <title>Student Program Progress: Insert Class</title>
 </head>
     <body>
         <div> <!-- Admin: insert -->
-            <h1> Record Internship Progress </h1>
+            <h1> Record Your Class Progress </h1>
             <form action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
 
                 <!--Get user input -->
-                <label for = "IA_num"> Internship Application Number: </label><br>
-                <input type = "text" id="IA_num" name="IA_num"><br>
+                <label for = "CE_num"> Class Enrollment Number: </label><br>
+                <input type = "text" id="CE_num" name="CE_num"><br>
 
                 <br>
 
@@ -34,8 +34,8 @@ File Completed By: Anoop Braich -->
 
                 <br>
 
-                <label for = "Intern_ID"> Internship ID: </label><br>
-                <input type = "text" id="Intern_ID" name="Intern_ID"><br>
+                <label for = "Class_ID"> Class ID: </label><br>
+                <input type = "text" id="Class_ID" name="Class_ID"><br>
 
                 <br>
 
@@ -43,10 +43,22 @@ File Completed By: Anoop Braich -->
                 <select id = "Status" name = "Status">
                     <option value = "Enrolled">Enrolled</option>
                     <option value = "Completed">Completed</option>
+                    <option value = "Dropped">Dropped</option>
 
                 </select>
                 <br>
                 <!-- <input type = "text" id="Status" name="Status"><br> -->
+
+                <br>
+
+                <label for = "Semester"> Semester: </label><br>
+                <select id = "Semester" name = "Semester">
+                    <option value = "Fall">Fall</option>
+                    <option value = "Spring">Spring</option>
+                    <option value = "Summer">Summer</option>
+
+                </select>
+                <br>
 
                 <br>
 
@@ -66,14 +78,15 @@ File Completed By: Anoop Braich -->
                 if ($_SERVER["REQUEST_METHOD"] == "POST") 
                 { 
                     // post these variables in the SQL query
-                    $IA_num = $_POST["IA_num"];
+                    $CE_num = $_POST["CE_num"];
                     $UIN = $_POST["UIN"];
-                    $Intern_ID = $_POST["Intern_ID"];
+                    $Class_ID = $_POST["Class_ID"];
                     $Status = $_POST["Status"];
+                    $Semester = $_POST["Semester"];
                     $Year = $_POST["Year"];
                               
 
-                    $sql = "INSERT INTO intern_app(IA_Num, UIN, Intern_ID, Status, Year) VALUES ('$IA_num','$UIN','$Intern_ID','$Status','$Year')";
+                    $sql = "INSERT INTO class_enrollment (CE_NUM, UIN, Class_ID, Status, Semester, Year) VALUES ('$CE_num', '$UIN', '$Class_ID', '$Status', '$Semester', '$Year')";
 
                     $conn->query($sql);
 
@@ -83,7 +96,7 @@ File Completed By: Anoop Braich -->
 
             <br>
             <br>
-            <button onclick="window.location.href = 'progress_insert.php';"> Back </button> <!-- back to insert page -->
+            <button onclick="window.location.href = 'progress_insert_student.php';"> Back </button> <!-- back to insert page -->
 
 
         </div>
