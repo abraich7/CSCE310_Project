@@ -223,8 +223,6 @@ FROM Users U;
 -- Jacob Index 2
 CREATE INDEX idx_college_students_uin ON College_Student(UIN);
 
-
-
 -- Anoop View 1
 
 CREATE VIEW your_classes AS
@@ -247,4 +245,3 @@ WHERE UIN = '$UIN';
 
 -- Anoop Index 1
 CREATE INDEX program_num_idx ON cert_enrollment(Program_Num); 
-
