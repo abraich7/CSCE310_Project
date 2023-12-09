@@ -172,7 +172,6 @@ File Completed By: Anoop Braich -->
                         }
                     }
 
-
                 }
 
 
@@ -182,8 +181,8 @@ File Completed By: Anoop Braich -->
                 {
                     // echo "Chosen program is Certification.";
 
-                    
-                    // $createIndexSQL = "  CREATE INDEX program_num_idx ON cert_enrollment(Program_Num)  ";
+                   
+
                     // $conn->query($createIndexSQL);
 
                     $sql = "SELECT * FROM cert_enrollment WHERE UIN = '$UIN'";

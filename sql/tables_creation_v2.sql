@@ -223,3 +223,25 @@ FROM Users U;
 -- Jacob Index 2
 CREATE INDEX idx_college_students_uin ON College_Student(UIN);
 
+-- Anoop View 1
+
+CREATE VIEW your_classes AS
+SELECT CE_NUM, Class_ID, Status, Semester, Year
+FROM class_enrollment
+WHERE UIN = '$UIN';
+
+-- Anoop View 2
+CREATE VIEW your_internships AS
+SELECT IA_Num, Intern_ID, Status, Year
+FROM intern_app
+WHERE UIN = '$UIN';
+
+-- Anoop View 3
+CREATE VIEW your_certifications AS
+SELECT CertE_Num, Cert_ID, Status, Training_Status, Program_Num, Semester, Year
+FROM cert_enrollment
+WHERE UIN = '$UIN';
+
+
+-- Anoop Index 1
+CREATE INDEX program_num_idx ON cert_enrollment(Program_Num); 
